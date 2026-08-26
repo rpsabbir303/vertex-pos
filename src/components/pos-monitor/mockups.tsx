@@ -408,3 +408,178 @@ export function MonitorFrame({
 export function YourOrderScreen() {
   return <OrderScreenContent />;
 }
+
+const productDetailCallouts = {
+  left: [
+    {
+      id: "clear-display",
+      title: "Clear customer display",
+      copy: "Clear order and payment information stays visible throughout every transaction.",
+    },
+    {
+      id: "readable-ui",
+      title: "Easy-to-read interface",
+      copy: "Large, organized transaction details make customer confirmation simple.",
+    },
+    {
+      id: "compact",
+      title: "Compact counter design",
+      copy: "A space-conscious footprint fits naturally into busy restaurant counters.",
+    },
+  ],
+  right: [
+    {
+      id: "durable",
+      title: "Durable build",
+      copy: "Built for continuous use in demanding restaurant environments.",
+    },
+    {
+      id: "facing",
+      title: "Customer-facing view",
+      copy: "Designed to give guests a clear view of orders, totals, and payment details.",
+    },
+    {
+      id: "integration",
+      title: "POS integration",
+      copy: "Works directly with Vertex POS for a connected checkout experience.",
+    },
+  ],
+};
+
+function DetailCallout({
+  title,
+  copy,
+  side,
+}: {
+  title: string;
+  copy: string;
+  side: "left" | "right";
+}) {
+  const isLeft = side === "left";
+  return (
+    <div
+      className={`flex items-center gap-3 ${
+        isLeft ? "flex-row" : "flex-row-reverse"
+      }`}
+    >
+      <div
+        className={`min-w-0 flex-1 ${isLeft ? "text-right" : "text-left"}`}
+      >
+        <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-ink">
+          {title}
+        </p>
+        <p className="mt-1.5 text-[13px] leading-5 text-ink-muted">{copy}</p>
+      </div>
+      <div
+        className={`flex shrink-0 items-center ${
+          isLeft ? "" : "flex-row-reverse"
+        }`}
+        aria-hidden
+      >
+        <span className="h-px w-8 bg-orange/70 md:w-12" />
+        <span className="h-2.5 w-2.5 rounded-full bg-orange ring-4 ring-orange/15" />
+      </div>
+    </div>
+  );
+}
+
+function MobileDetailCard({
+  title,
+  copy,
+}: {
+  title: string;
+  copy: string;
+}) {
+  return (
+    <div className="rounded-xl border border-line bg-white p-4">
+      <div className="mb-2 flex items-center gap-2">
+        <span className="h-2 w-2 rounded-full bg-orange" aria-hidden />
+        <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-ink">
+          {title}
+        </p>
+      </div>
+      <p className="text-[13px] leading-5 text-ink-muted">{copy}</p>
+    </div>
+  );
+}
+
+/**
+ * Premium hardware feature diagram — monitor centered with six callouts.
+ * Pass imageSrc when a transparent product render is available.
+ */
+export function ProductDetailsDiagram({
+  imageSrc,
+}: {
+  imageSrc?: string;
+}) {
+  return (
+    <div className="w-full">
+      {/* Desktop / large tablet diagram */}
+      <div className="hidden items-center gap-4 lg:grid lg:grid-cols-[1fr_minmax(300px,440px)_1fr] lg:gap-6 xl:gap-10">
+        <div className="flex flex-col justify-center gap-10 py-4">
+          {productDetailCallouts.left.map((item) => (
+            <DetailCallout
+              key={item.id}
+              title={item.title}
+              copy={item.copy}
+              side="left"
+            />
+          ))}
+        </div>
+
+        <div className="relative mx-auto w-full max-w-[440px]">
+          <div
+            aria-hidden
+            className="absolute inset-x-8 bottom-2 top-10 rounded-[32px] bg-[#F0EDE7]"
+          />
+          <div className="relative px-2 py-8">
+            <MonitorUnit
+              size="xl"
+              angle="tilt"
+              screen="showcase"
+              imageSrc={imageSrc}
+              label="POS Monitor"
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-col justify-center gap-10 py-4">
+          {productDetailCallouts.right.map((item) => (
+            <DetailCallout
+              key={item.id}
+              title={item.title}
+              copy={item.copy}
+              side="right"
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Mobile / tablet stacked */}
+      <div className="lg:hidden">
+        <div className="mx-auto max-w-sm">
+          <div className="rounded-[28px] border border-line bg-white p-6 shadow-card">
+            <MonitorUnit
+              size="lg"
+              angle="tilt"
+              screen="showcase"
+              imageSrc={imageSrc}
+              label="POS Monitor"
+            />
+          </div>
+        </div>
+        <div className="mt-8 grid gap-3 sm:grid-cols-2">
+          {[...productDetailCallouts.left, ...productDetailCallouts.right].map(
+            (item) => (
+              <MobileDetailCard
+                key={item.id}
+                title={item.title}
+                copy={item.copy}
+              />
+            ),
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

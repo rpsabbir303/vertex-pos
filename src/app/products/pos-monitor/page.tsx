@@ -7,6 +7,7 @@ import {
   MonitorFeatures,
   MonitorFinalCta,
   MonitorHero,
+  ProductDetailsShowcase,
   ProductExperience,
   ProductIntro,
   WhatsIncluded,
@@ -23,6 +24,7 @@ export default function PosMonitorPage() {
     <>
       <MonitorHero />
       <ProductIntro />
+      <ProductDetailsShowcase />
       <MonitorFeatures />
       <DeviceDetails />
       <CounterUseCases />

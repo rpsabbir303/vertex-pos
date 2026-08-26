@@ -16,6 +16,7 @@ import {
   MonitorDetailStage,
   MonitorHeroStage,
   MonitorUnit,
+  ProductDetailsDiagram,
 } from "@/components/pos-monitor/mockups";
 
 function Inner({
@@ -122,6 +123,32 @@ export function ProductIntro() {
                 ))}
               </ul>
             </div>
+          </div>
+        </Inner>
+      </FeatureWide>
+    </section>
+  );
+}
+
+/* ─── PRODUCT DETAILS SHOWCASE ─── */
+export function ProductDetailsShowcase() {
+  return (
+    <section className="bg-[#FAF8F4] py-20 md:py-28">
+      <FeatureWide>
+        <Inner>
+          <div className="mx-auto max-w-3xl text-center">
+            <SectionLabel>Product details</SectionLabel>
+            <h2 className="serif-tight mt-2 text-3xl text-ink md:text-4xl">
+              Built to stay clear at every counter.
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-7 text-ink-muted md:text-[16px]">
+              Designed for fast-moving restaurants, the Vertex POS Monitor keeps
+              every transaction visible with a clear customer-facing display and
+              a durable countertop design.
+            </p>
+          </div>
+          <div className="mt-12 md:mt-16">
+            <ProductDetailsDiagram />
           </div>
         </Inner>
       </FeatureWide>
