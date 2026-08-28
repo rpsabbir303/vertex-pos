@@ -264,12 +264,14 @@ export function ForecastToPrep() {
                 Kitchen status
               </p>
               <div className="mt-4 grid grid-cols-2 gap-3">
-                {[
-                  ["Prep", "Chicken — Ready", "Ready", "ready" as const],
-                  ["Grill", "Patties — 24 / 40", "In progress", "medium" as const],
-                  ["Fry", "Fries — 45 / 45", "Ready", "ready" as const],
-                  ["Assembly", "Waiting for grill", "Waiting", "neutral" as const],
-                ].map(([station, task, status, tone]) => (
+                {(
+                  [
+                    ["Prep", "Chicken — Ready", "Ready", "ready"],
+                    ["Grill", "Patties — 24 / 40", "In progress", "medium"],
+                    ["Fry", "Fries — 45 / 45", "Ready", "ready"],
+                    ["Assembly", "Waiting for grill", "Waiting", "neutral"],
+                  ] as const
+                ).map(([station, task, status, tone]) => (
                   <div key={station} className="rounded-xl border border-line bg-fog p-3">
                     <div className="flex items-center justify-between gap-2">
                       <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-faint">
