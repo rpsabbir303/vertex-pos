@@ -49,6 +49,11 @@ export const productLinks = [
     href: "/products/cash-counter",
   },
   {
+    title: "Cash Counter Box",
+    description: "Secure cash drawer for organized bills, coins, and everyday checkout.",
+    href: "/products/cash-counter-box",
+  },
+  {
     title: "Restaurant Printing",
     description: "Kitchen ticket and label printers for Vertex POS.",
     href: "/products/vertex-printer",
@@ -107,6 +112,7 @@ export const footerColumns = [
       { label: "POS Device", href: "/products/pos-device" },
       { label: "POS Monitor", href: "/products/pos-monitor" },
       { label: "Cash Counter", href: "/products/cash-counter" },
+      { label: "Cash Counter Box", href: "/products/cash-counter-box" },
       { label: "Restaurant Printing", href: "/products/vertex-printer" },
       { label: "POS Printer", href: "/products/pos-printer" },
       { label: "Card Reader", href: "/products/pos-card-reader" },
