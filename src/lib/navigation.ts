@@ -44,8 +44,8 @@ export const productLinks = [
     href: "/products/pos-monitor",
   },
   {
-    title: "Cash Counter Box",
-    description: "Secure cash drawer for organized notes, coins, and shift cash handling.",
+    title: "Cash Counter",
+    description: "Professional POS checkout station for a clean, organized counter workspace.",
     href: "/products/cash-counter",
   },
   {
@@ -106,7 +106,7 @@ export const footerColumns = [
     links: [
       { label: "POS Device", href: "/products/pos-device" },
       { label: "POS Monitor", href: "/products/pos-monitor" },
-      { label: "Cash Counter Box", href: "/products/cash-counter" },
+      { label: "Cash Counter", href: "/products/cash-counter" },
       { label: "Restaurant Printing", href: "/products/vertex-printer" },
       { label: "POS Printer", href: "/products/pos-printer" },
       { label: "Card Reader", href: "/products/pos-card-reader" },

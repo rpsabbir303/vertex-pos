@@ -1,29 +1,29 @@
-import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/Button";
-import { CheckItem, FeatureWide, SectionLabel } from "@/components/ui/LayoutBits";
+import { FeatureWide, SectionLabel } from "@/components/ui/LayoutBits";
+import { FaqSection } from "@/components/layout/FaqSection";
 import {
-  cashBoxProduct,
-  formatCashBoxPrice,
+  cashCounterProduct,
+  checkoutExperienceBullets,
+  counterBusinessTypes,
+  counterDesignFeatures,
+  counterEcosystemProducts,
+  counterFaqs,
+  counterIncluded,
+  counterPeaceOfMind,
+  counterSetupOptions,
+  counterTrustIndicators,
 } from "@/components/cash-counter/catalog";
 import {
-  CashDrawerClosed,
-  CashDrawerOpen,
-  CashManagementUi,
-  HeroProductVisual,
-  IconSvg,
-  OrangeIcon,
+  CounterBusinessCard,
+  CounterBusinessScene,
+  CounterCheckoutScene,
+  CounterEcosystemVisual,
+  CounterHeroVisual,
+  CounterProductDetailsDiagram,
+  CounterStationUnit,
 } from "@/components/cash-counter/mockups";
-
-const imgHands =
-  "https://images.unsplash.com/photo-1556742111-a301076d9d18?auto=format&fit=crop&w=1600&q=80";
-const imgCounter =
-  "https://images.unsplash.com/photo-1556745757-8d76bdb6984b?auto=format&fit=crop&w=1400&q=80";
-const imgClose =
-  "https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=1000&q=80";
-const imgDining =
-  "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80";
-const imgBar =
-  "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1000&q=80";
+import { Reveal } from "@/components/pos-monitor/Reveal";
 
 function Inner({
   children,
@@ -32,129 +32,113 @@ function Inner({
   children: React.ReactNode;
   className?: string;
 }) {
-  return <div className={`mx-auto w-full max-w-[1450px] ${className}`}>{children}</div>;
+  return (
+    <div className={`mx-auto w-full max-w-[1320px] ${className}`}>{children}</div>
+  );
 }
 
-/* 1 — HERO */
-export function CashHero() {
-  const pills = [
-    { label: "Secure Storage", d: "M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7l7-4z" },
-    { label: "Organized Compartments", d: "M4 6h16v4H4zM4 12h7v6H4zM13 12h7v6h-7z" },
-    { label: "Fast Cash Access", d: "M13 2L4 14h7l-1 8 10-12h-7l1-8z" },
-    { label: "Shift Reconciliation", d: "M5 12l4 4L19 6" },
-  ];
+function LineIcon({ d }: { d: string }) {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d={d}
+        stroke="#F15A24"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
+type FeatureSectionProps = {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  copy: string;
+  bullets?: readonly string[];
+  visual: React.ReactNode;
+  reverse?: boolean;
+  bg?: "white" | "fog";
+};
+
+function FeatureSection({
+  id,
+  eyebrow,
+  title,
+  copy,
+  bullets,
+  visual,
+  reverse = false,
+  bg = "white",
+}: FeatureSectionProps) {
+  return (
+    <section
+      id={id}
+      className={bg === "fog" ? "bg-[#F5F4F2] py-20 md:py-28" : "bg-white py-20 md:py-28"}
+    >
+      <FeatureWide>
+        <Inner>
+          <Reveal>
+            <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+              <div className={reverse ? "lg:order-2" : ""}>
+                {eyebrow ? <SectionLabel>{eyebrow}</SectionLabel> : null}
+                <h2 className="serif-tight text-3xl text-ink md:text-[40px] md:leading-[1.12]">
+                  {title}
+                </h2>
+                <p className="mt-4 text-[16px] leading-7 text-ink-muted">{copy}</p>
+                {bullets ? (
+                  <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+                    {bullets.map((item) => (
+                      <li key={item} className="flex items-start gap-2.5">
+                        <span
+                          className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange"
+                          aria-hidden
+                        />
+                        <span className="text-[14px] leading-6 text-ink">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+              <div className={reverse ? "lg:order-1" : ""}>{visual}</div>
+            </div>
+          </Reveal>
+        </Inner>
+      </FeatureWide>
+    </section>
+  );
+}
+
+/* ─── 1. HERO ─── */
+export function CounterHero() {
   return (
     <section className="bg-white pt-28 md:pt-32">
       <FeatureWide>
         <Inner>
-          <div className="grid items-center gap-12 pb-10 lg:grid-cols-[1.05fr_0.95fr] lg:pb-14">
-            <div className="max-w-xl">
-              <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-orange">
-                Vertex Cash Counter Box
-              </p>
-              <h1 className="serif-tight mt-4 text-4xl leading-[1.08] md:text-[52px]">
-                Keep every cash transaction organized.
-              </h1>
-              <p className="mt-5 text-[16px] leading-7 text-ink-muted">
-                A secure, restaurant-ready cash drawer designed to keep every
-                shift organized — from opening float to final reconciliation.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Button href="/get-started">Get Started</Button>
-                <Button href="/get-started" variant="secondary">
-                  Book a Demo
-                </Button>
-              </div>
-              <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
-                {pills.map((item) => (
-                  <div key={item.label} className="flex flex-col items-start gap-2">
-                    <OrangeIcon>
-                      <IconSvg d={item.d} />
-                    </OrangeIcon>
-                    <p className="text-[12px] font-semibold leading-4 text-ink">
-                      {item.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <HeroProductVisual />
-          </div>
-        </Inner>
-      </FeatureWide>
-    </section>
-  );
-}
-
-/* 2 — WORKFLOW */
-export function CashWorkflow() {
-  const steps = [
-    {
-      num: "01",
-      title: "Open Shift",
-      copy: "Set the opening cash float.",
-      d: "M12 5v14M5 12h14",
-    },
-    {
-      num: "02",
-      title: "Take Payments",
-      copy: "Keep cash organized during service.",
-      d: "M4 7h16v10H4zM4 11h16",
-    },
-    {
-      num: "03",
-      title: "Cash Drops",
-      copy: "Record and secure excess cash.",
-      d: "M12 4v10M8 10l4 4 4-4M5 18h14",
-    },
-    {
-      num: "04",
-      title: "Count & Reconcile",
-      copy: "Compare expected vs. actual cash.",
-      d: "M5 12l4 4L19 6",
-    },
-    {
-      num: "05",
-      title: "Close Shift",
-      copy: "Finalize the register and report.",
-      d: "M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM8 12h8",
-    },
-  ];
-
-  return (
-    <section className="bg-fog py-20 md:py-24">
-      <FeatureWide>
-        <Inner>
-          <SectionLabel>Cash workflow</SectionLabel>
-          <h2 className="serif-tight max-w-2xl text-3xl md:text-4xl">
-            From opening float to closing count.
-          </h2>
-
-          <div className="mt-10 flex gap-3 overflow-x-auto pb-2 lg:grid lg:grid-cols-5 lg:overflow-visible lg:pb-0">
-            {steps.map((step, i) => (
-              <div key={step.num} className="relative min-w-[200px] shrink-0 lg:min-w-0">
-                <div className="h-full rounded-2xl border border-line bg-white p-5 shadow-card">
-                  <OrangeIcon>
-                    <IconSvg d={step.d} />
-                  </OrangeIcon>
-                  <p className="mt-4 text-[12px] font-semibold text-orange">
-                    {step.num}
-                  </p>
-                  <h3 className="mt-1 text-[14px] font-semibold uppercase tracking-[0.06em]">
-                    {step.title}
-                  </h3>
-                  <p className="mt-2 text-[13px] leading-5 text-ink-muted">
-                    {step.copy}
-                  </p>
+          <div className="grid items-center gap-12 pb-16 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16 lg:pb-24">
+            <Reveal>
+              <div className="max-w-xl">
+                <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-orange">
+                  {cashCounterProduct.category}
+                </p>
+                <h1 className="serif-tight mt-5 text-4xl leading-[1.05] text-ink md:text-[56px]">
+                  {cashCounterProduct.tagline}
+                </h1>
+                <p className="mt-5 text-[16px] leading-7 text-ink-muted md:text-[17px]">
+                  {cashCounterProduct.heroSupport}
+                </p>
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <Button href="/get-started">Get Started</Button>
+                  <Button href="#features" variant="secondary">
+                    Explore Features
+                  </Button>
                 </div>
-                {i < steps.length - 1 && (
-                  <span className="absolute -right-2.5 top-1/2 z-10 hidden -translate-y-1/2 text-orange lg:block">
-                    →
-                  </span>
-                )}
               </div>
-            ))}
+            </Reveal>
+            <Reveal delay={120}>
+              <CounterHeroVisual />
+            </Reveal>
           </div>
         </Inner>
       </FeatureWide>
@@ -162,453 +146,435 @@ export function CashWorkflow() {
   );
 }
 
-/* 3 — ANATOMY with orange leader lines */
-export function ProductAnatomy() {
-  const left = [
-    { title: "Bill Organizer", copy: "Multi-slot bill storage with hold-downs." },
-    { title: "Coin Tray", copy: "Five coin cups for quick change." },
-    { title: "Durable Build", copy: "Commercial-grade steel enclosure." },
-  ];
-  const right = [
-    { title: "Secure Lock", copy: "Lockable drawer with key access." },
-    { title: "Smooth Operation", copy: "Built for repeated daily opens." },
-    { title: "Counter Ready", copy: "Compact footprint for FOH counters." },
-  ];
+/* ─── 2. PRODUCT INTRODUCTION ─── */
+export function ProductIntroduction() {
+  return (
+    <FeatureSection
+      eyebrow="Checkout station"
+      title="Everything your checkout needs."
+      copy={cashCounterProduct.intro}
+      bullets={cashCounterProduct.benefits}
+      visual={
+        <div className="rounded-[28px] border border-line bg-white p-8 shadow-card md:p-10">
+          <CounterStationUnit size="lg" layout="full" />
+        </div>
+      }
+    />
+  );
+}
 
+/* ─── 3. COUNTER DESIGN ─── */
+export function CounterDesignSection() {
+  return (
+    <FeatureSection
+      id="features"
+      title="Designed around your POS."
+      copy="The Vertex Cash Counter is built to accommodate your POS equipment and create an organized, professional checkout environment."
+      bullets={counterDesignFeatures}
+      bg="fog"
+      reverse
+      visual={
+        <div className="rounded-[28px] border border-line bg-white p-8 shadow-card md:p-10">
+          <CounterStationUnit size="lg" layout="full" />
+        </div>
+      }
+    />
+  );
+}
+
+/* ─── 4. REAL BUSINESS ─── */
+export function RealBusinessSection() {
+  return (
+    <FeatureSection
+      title="Made for real-world business."
+      copy="The Vertex Cash Counter fits naturally into everyday customer-facing environments — from retail floors to restaurant counters and service desks."
+      visual={<CounterBusinessScene size="lg" layout="full" />}
+    />
+  );
+}
+
+/* ─── 5. CHECKOUT EXPERIENCE ─── */
+export function CheckoutExperienceSection() {
+  return (
+    <FeatureSection
+      title="A better space for every transaction."
+      copy="A dedicated POS counter creates a cleaner, more professional checkout experience — with organized hardware placement and a clear workspace for staff and customers."
+      bullets={checkoutExperienceBullets}
+      bg="fog"
+      reverse
+      visual={<CounterCheckoutScene size="lg" />}
+    />
+  );
+}
+
+/* ─── 6. COMPLETE POS SETUP ─── */
+export function CompletePosSetupSection() {
   return (
     <section className="bg-white py-20 md:py-28">
       <FeatureWide>
         <Inner>
-          <div className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr]">
-            <div>
-              <SectionLabel>Organized cash storage</SectionLabel>
-              <h2 className="serif-tight max-w-md text-3xl md:text-4xl">
-                Built to keep cash exactly where it belongs.
-              </h2>
-              <p className="mt-4 max-w-md text-[15px] leading-7 text-ink-muted">
-                Separate notes and coins into dedicated compartments so staff can
-                find the right denomination quickly.
-              </p>
-
-              <div className="mt-8 space-y-5">
-                {left.map((item) => (
-                  <div key={item.title} className="flex items-start gap-3">
-                    <span className="mt-2 h-px w-8 shrink-0 bg-orange md:w-12" />
-                    <div>
-                      <p className="text-[14px] font-semibold">{item.title}</p>
-                      <p className="mt-0.5 text-[13px] text-ink-muted">{item.copy}</p>
-                    </div>
-                  </div>
-                ))}
+          <Reveal>
+            <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+              <div>
+                <SectionLabel>Vertex ecosystem</SectionLabel>
+                <h2 className="serif-tight text-3xl text-ink md:text-[40px]">
+                  Your POS. Your workspace. One complete setup.
+                </h2>
+                <p className="mt-4 text-[16px] leading-7 text-ink-muted">
+                  Combine the Cash Counter with Vertex POS hardware to create a
+                  complete, connected checkout environment.
+                </p>
+                <ul className="mt-8 flex flex-wrap gap-3">
+                  {counterEcosystemProducts.map((product) => (
+                    <li key={product.href}>
+                      <Link
+                        href={product.href}
+                        className={`inline-flex rounded-full border px-4 py-2 text-[13px] font-semibold transition-colors ${
+                          "primary" in product && product.primary
+                            ? "border-orange/40 bg-orange-soft/50 text-orange"
+                            : "border-line bg-white text-ink hover:border-orange/40 hover:text-orange"
+                        }`}
+                      >
+                        {product.label} →
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
+              <CounterEcosystemVisual />
             </div>
-
-            <div className="relative">
-              <div className="rounded-2xl border border-line bg-fog p-4 md:p-6">
-                <CashDrawerOpen size="lg" />
-              </div>
-              <div className="mt-5 grid gap-3 sm:grid-cols-3 lg:absolute lg:-right-2 lg:top-6 lg:mt-0 lg:w-44 lg:grid-cols-1">
-                {right.map((item) => (
-                  <div
-                    key={item.title}
-                    className="rounded-xl border border-line bg-white px-3 py-3 shadow-card"
-                  >
-                    <div className="mb-1 flex items-center gap-2">
-                      <span className="h-px w-5 bg-orange" />
-                      <p className="text-[13px] font-semibold">{item.title}</p>
-                    </div>
-                    <p className="text-[12px] leading-4 text-ink-muted">{item.copy}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          </Reveal>
         </Inner>
       </FeatureWide>
     </section>
   );
 }
 
-/* 4 — SOFTWARE / TRACKING */
-export function CashTracking() {
-  const items = [
-    { title: "Opening Float", copy: "Start every shift with a clear balance.", d: "M12 5v14M5 12h14" },
-    { title: "Cash Drops", copy: "Secure excess cash with a record.", d: "M12 4v10M8 10l4 4 4-4M5 18h14" },
-    { title: "Live Totals", copy: "See expected cash as sales happen.", d: "M4 19V9M10 19V5M16 19v-7" },
-    { title: "Shift Report", copy: "Close with a complete cash summary.", d: "M6 4h12v16H6zM9 8h6M9 12h6" },
-  ];
-
+/* ─── 7. FLEXIBLE BUSINESS ─── */
+export function FlexibleBusinessSection() {
   return (
-    <section className="bg-fog py-20 md:py-24">
+    <section className="bg-[#F5F4F2] py-20 md:py-28">
       <FeatureWide>
         <Inner>
-          <div className="grid items-center gap-12 lg:grid-cols-[1fr_1fr]">
-            <CashManagementUi />
-            <div>
-              <SectionLabel>Cash management</SectionLabel>
-              <h2 className="serif-tight text-3xl md:text-4xl">
-                Accurate cash tracking. Clearer reconciliation.
+          <Reveal>
+            <div className="mx-auto max-w-2xl text-center">
+              <SectionLabel>Business types</SectionLabel>
+              <h2 className="serif-tight mt-2 text-3xl text-ink md:text-4xl">
+                Designed to fit your business.
               </h2>
               <p className="mt-4 text-[15px] leading-7 text-ink-muted">
-                Pair the Cash Counter Box with shift tracking so opening cash,
-                sales, drops, expected totals, and variance stay clear.
+                A professional checkout station for different customer-facing
+                environments.
               </p>
-              <div className="mt-8 grid gap-5 sm:grid-cols-2">
-                {items.map((item) => (
-                  <div key={item.title} className="flex gap-3">
-                    <OrangeIcon>
-                      <IconSvg d={item.d} />
-                    </OrangeIcon>
-                    <div>
-                      <p className="text-[14px] font-semibold">{item.title}</p>
-                      <p className="mt-1 text-[13px] leading-5 text-ink-muted">
-                        {item.copy}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
-          </div>
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {counterBusinessTypes.map((type) => (
+                <article key={type.title}>
+                  <CounterBusinessCard title={type.title} layout="full" />
+                  <p className="mt-4 text-[14px] leading-6 text-ink-muted">
+                    {type.copy}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </Reveal>
         </Inner>
       </FeatureWide>
     </section>
   );
 }
 
-/* 5 — SECURITY (dark) */
-export function SecuritySection() {
-  const points = [
-    { title: "Secure Storage", copy: "Keep cash protected in a lockable drawer.", d: "M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7l7-4z" },
-    { title: "Controlled Access", copy: "Key access for authorized staff only.", d: "M7 11V8a5 5 0 0 1 10 0v3M6 11h12v9H6z" },
-    { title: "Shift Accountability", copy: "Clear opening, drops, and closing records.", d: "M9 12l2 2 4-4M6 4h12v16H6z" },
-    { title: "Cash Movement", copy: "Track sales, refunds, and cash drops.", d: "M4 12h16M12 4l8 8-8 8" },
-  ];
-
+/* ─── 8. PRODUCT DETAILS ─── */
+export function HardwareSpecs() {
   return (
-    <section className="bg-night py-20 md:py-24">
+    <section id="specifications" className="bg-white py-20 md:py-28">
       <FeatureWide>
         <Inner>
-          <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-            <div className="text-white">
-              <SectionLabel>Security</SectionLabel>
-              <h2 className="serif-tight text-3xl md:text-4xl">
-                Secure cash. Controlled access. Complete accountability.
-              </h2>
-              <div className="mt-8 grid gap-5 sm:grid-cols-2">
-                {points.map((item) => (
-                  <div key={item.title} className="flex gap-3">
-                    <OrangeIcon dark>
-                      <IconSvg d={item.d} />
-                    </OrangeIcon>
-                    <div>
-                      <p className="text-[14px] font-semibold">{item.title}</p>
-                      <p className="mt-1 text-[13px] leading-5 text-white/60">
-                        {item.copy}
-                      </p>
+          <Reveal>
+            <div className="grid items-start gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
+              <div>
+                <SectionLabel>Product details</SectionLabel>
+                <h2 className="serif-tight mt-2 text-3xl text-ink md:text-4xl">
+                  {cashCounterProduct.name} specifications
+                </h2>
+                <p className="mt-4 text-[15px] leading-7 text-ink-muted">
+                  Confirmed product information for the Vertex Cash Counter.
+                  Contact sales for configuration details.
+                </p>
+                <dl className="mt-8 divide-y divide-line rounded-2xl border border-line bg-[#FAF8F4]">
+                  {cashCounterProduct.specs.map((spec) => (
+                    <div
+                      key={spec.label}
+                      className="grid gap-1 px-5 py-4 sm:grid-cols-[minmax(130px,0.42fr)_1fr] sm:gap-6"
+                    >
+                      <dt className="text-[12px] font-semibold uppercase tracking-[0.1em] text-ink-faint">
+                        {spec.label}
+                      </dt>
+                      <dd className="text-[15px] font-medium text-ink">
+                        {spec.value}
+                      </dd>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </dl>
+              </div>
+              <div className="rounded-[28px] border border-line bg-white p-8 shadow-card md:p-10">
+                <CounterStationUnit size="lg" layout="full" />
+                <div className="mt-6 flex flex-wrap justify-center gap-2">
+                  {["POS Device", "POS Monitor", "Work surface", "Vertex POS"].map(
+                    (label) => (
+                      <span
+                        key={label}
+                        className="rounded-full border border-line bg-[#FAF8F4] px-3 py-1 text-[11px] font-medium text-ink-muted"
+                      >
+                        {label}
+                      </span>
+                    ),
+                  )}
+                </div>
               </div>
             </div>
-            <div className="relative overflow-hidden rounded-2xl">
-              <Image
-                src={imgBar}
-                alt="Restaurant counter with locked cash drawer"
-                width={1000}
-                height={800}
-                className="h-[360px] w-full object-cover md:h-[420px]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              <div className="absolute bottom-5 left-5 right-5">
-                <CashDrawerClosed />
-              </div>
-            </div>
-          </div>
+          </Reveal>
         </Inner>
       </FeatureWide>
     </section>
   );
 }
 
-/* 6 — REAL SERVICE */
-export function RealService() {
-  const checks = [
-    "Faster cash handling during rush",
-    "Organized denominations for change",
-    "Easy cash drops when the drawer fills",
-    "Accurate closing at end of shift",
-  ];
+/* ─── 9. PRODUCT ANNOTATION ─── */
+export function ProductComponentsShowcase() {
+  return (
+    <section className="bg-white py-20 md:py-28">
+      <FeatureWide>
+        <Inner>
+          <Reveal>
+            <div className="mx-auto max-w-3xl text-center">
+              <SectionLabel>Components</SectionLabel>
+              <h2 className="serif-tight mt-2 text-3xl text-ink md:text-4xl">
+                Built for the modern checkout.
+              </h2>
+              <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-7 text-ink-muted">
+                Explore the design of the Vertex Cash Counter checkout station.
+              </p>
+            </div>
+            <div className="mt-12 md:mt-16">
+              <CounterProductDetailsDiagram />
+            </div>
+          </Reveal>
+        </Inner>
+      </FeatureWide>
+    </section>
+  );
+}
 
+/* ─── 10. TRUST ─── */
+export function CounterTrustSection() {
+  return (
+    <section className="bg-night py-20 md:py-28">
+      <FeatureWide>
+        <Inner>
+          <Reveal>
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-orange-mid">
+                Trusted at the counter
+              </p>
+              <h2 className="serif-tight mt-6 text-3xl text-white md:text-4xl">
+                Designed for better business.
+              </h2>
+              <p className="mx-auto mt-5 max-w-2xl text-[16px] leading-7 text-white/60">
+                A professional checkout station designed to create a cleaner,
+                more organized POS environment for everyday business operations.
+              </p>
+              <div className="mt-10 flex flex-wrap justify-center gap-3">
+                {counterTrustIndicators.map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[13px] font-medium text-white/80"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        </Inner>
+      </FeatureWide>
+    </section>
+  );
+}
+
+/* ─── 11. COMPLETE SETUP ─── */
+export function CompleteSetupSection() {
+  return (
+    <section className="bg-white py-20 md:py-28">
+      <FeatureWide>
+        <Inner>
+          <Reveal>
+            <div className="mx-auto max-w-2xl text-center">
+              <SectionLabel>Setup</SectionLabel>
+              <h2 className="serif-tight mt-2 text-3xl text-ink md:text-4xl">
+                Create your complete checkout setup.
+              </h2>
+              <p className="mt-4 text-[15px] leading-7 text-ink-muted">
+                Start with the Cash Counter or plan a full Vertex checkout
+                environment with sales.
+              </p>
+            </div>
+            <div className="mt-12 grid gap-6 md:grid-cols-2">
+              {counterSetupOptions.map((option) => (
+                <article
+                  key={option.name}
+                  className={`flex flex-col rounded-2xl border p-6 transition-shadow hover:shadow-mock md:p-8 ${
+                    option.featured
+                      ? "border-orange/30 bg-orange-soft/40 shadow-card"
+                      : "border-line bg-white shadow-card"
+                  }`}
+                >
+                  <div className="mb-6 flex justify-center rounded-xl border border-line bg-[#FAF8F4] p-6">
+                    <CounterStationUnit
+                      size="sm"
+                      layout={option.layout === "ecosystem" ? "full" : "minimal"}
+                    />
+                  </div>
+                  <h3 className="text-[20px] font-semibold text-ink">
+                    {option.name}
+                  </h3>
+                  <p className="mt-2 text-[14px] leading-6 text-ink-muted">
+                    {option.description}
+                  </p>
+                  <ul className="mt-6 flex-1 space-y-2">
+                    {option.features.map((feature) => (
+                      <li
+                        key={feature}
+                        className="flex items-start gap-2 text-[14px] text-ink"
+                      >
+                        <span
+                          className="mt-2 h-1 w-1 shrink-0 rounded-full bg-orange"
+                          aria-hidden
+                        />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-8">
+                    <Button
+                      href={option.href}
+                      variant={option.featured ? "primary" : "secondary"}
+                      className="w-full sm:w-auto"
+                    >
+                      {option.cta}
+                    </Button>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <div className="mt-8 grid gap-4 md:grid-cols-2">
+              {counterIncluded.map((item) => (
+                <div
+                  key={item.title}
+                  className="flex gap-5 rounded-2xl border border-line bg-[#FAF8F4] p-6"
+                >
+                  <div className="w-[120px] shrink-0">
+                    <CounterStationUnit size="sm" layout="minimal" />
+                  </div>
+                  <div>
+                    <h3 className="text-[17px] font-semibold text-ink">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 text-[14px] leading-6 text-ink-muted">
+                      {item.copy}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </Inner>
+      </FeatureWide>
+    </section>
+  );
+}
+
+/* ─── 12. PEACE OF MIND ─── */
+export function PeaceOfMindSection() {
   return (
     <section className="bg-white py-20 md:py-24">
       <FeatureWide>
         <Inner>
-          <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
-            <div className="relative overflow-hidden rounded-2xl shadow-mock">
-              <Image
-                src={imgHands}
-                alt="Restaurant employee placing cash into the drawer"
-                width={1600}
-                height={1000}
-                className="h-[380px] w-full object-cover md:h-[460px]"
-              />
-            </div>
-            <div>
-              <SectionLabel>Made for real service</SectionLabel>
-              <h2 className="serif-tight text-3xl md:text-4xl">
-                Built for the pace of real restaurant service.
+          <Reveal>
+            <div className="mx-auto max-w-2xl text-center">
+              <h2 className="serif-tight text-3xl text-ink md:text-4xl">
+                Peace of mind with Vertex.
               </h2>
               <p className="mt-4 text-[15px] leading-7 text-ink-muted">
-                From the first transaction to the final count, Vertex keeps cash
-                handling simple and organized for your team.
+                Hardware and support designed to keep your checkout running
+                smoothly.
               </p>
-              <ul className="mt-7 space-y-3">
-                {checks.map((item) => (
-                  <CheckItem key={item}>{item}</CheckItem>
-                ))}
-              </ul>
             </div>
-          </div>
-        </Inner>
-      </FeatureWide>
-    </section>
-  );
-}
-
-/* 7 — SPECS + GALLERY + PRICING (3-col) */
-export function SpecsGalleryPricing() {
-  const gallery = [
-    { src: imgCounter, label: "On counter" },
-    { src: imgClose, label: "In service" },
-    { src: imgBar, label: "Side view" },
-    { src: imgDining, label: "Restaurant setup" },
-  ];
-
-  return (
-    <section className="bg-fog py-20 md:py-24" id="pricing">
-      <FeatureWide>
-        <Inner>
-          <div className="grid gap-6 lg:grid-cols-[1fr_1fr_0.9fr]">
-            {/* Specs */}
-            <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-card">
-              <div className="border-b border-line px-5 py-4">
-                <h2 className="text-[16px] font-semibold">
-                  Cash Counter Box specifications
-                </h2>
-              </div>
-              <dl className="divide-y divide-line">
-                {cashBoxProduct.specs.map((spec) => (
-                  <div
-                    key={spec.label}
-                    className="grid gap-1 px-5 py-3 sm:grid-cols-[110px_1fr]"
-                  >
-                    <dt className="text-[12px] font-semibold text-ink-muted">
-                      {spec.label}
-                    </dt>
-                    <dd className="text-[13px] font-medium leading-5">
-                      {spec.value}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-
-            {/* Gallery 2x2 */}
-            <div className="grid grid-cols-2 gap-3">
-              {gallery.map((item, i) => (
-                <div
-                  key={item.label}
-                  className="relative overflow-hidden rounded-2xl border border-line bg-white"
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {counterPeaceOfMind.map((item) => (
+                <article
+                  key={item.title}
+                  className="rounded-2xl border border-line bg-[#FAF8F4] p-6 transition-shadow hover:shadow-card"
                 >
-                  {i === 0 ? (
-                    <div className="flex h-full min-h-[140px] items-center bg-[#F3EEE6] p-2 md:min-h-[180px]">
-                      <CashDrawerOpen size="sm" />
-                    </div>
-                  ) : i === 2 ? (
-                    <div className="flex h-full min-h-[140px] items-center bg-night p-3 md:min-h-[180px]">
-                      <CashDrawerClosed />
-                    </div>
-                  ) : (
-                    <>
-                      <Image
-                        src={item.src}
-                        alt={item.label}
-                        width={500}
-                        height={400}
-                        className="h-full min-h-[140px] w-full object-cover md:min-h-[180px]"
-                      />
-                      <span className="absolute bottom-2 left-2 rounded-full bg-black/50 px-2 py-0.5 text-[10px] font-semibold text-white">
-                        {item.label}
-                      </span>
-                    </>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            {/* Pricing card */}
-            <div className="flex flex-col justify-between rounded-2xl border border-line bg-white p-6 shadow-mock">
-              <div>
-                <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-orange">
-                  Pricing
-                </p>
-                <p className="mt-5 text-[14px] text-ink-muted">Starting at</p>
-                <p className="mt-1 text-[48px] font-semibold tracking-tight">
-                  {formatCashBoxPrice()}
-                </p>
-                <p className="mt-3 text-[14px] leading-6 text-ink-muted">
-                  Add reliable cash handling to your restaurant checkout setup.
-                </p>
-              </div>
-              <div className="mt-8 space-y-3">
-                <Button href="/get-started" className="w-full">
-                  Book a Demo
-                </Button>
-                <Button href="/get-started" variant="secondary" className="w-full">
-                  Get Started
-                </Button>
-                <p className="text-center text-[12px] text-ink-muted">
-                  Compatible with supported Vertex POS setups
-                </p>
-              </div>
-            </div>
-          </div>
-        </Inner>
-      </FeatureWide>
-    </section>
-  );
-}
-
-/* 8 — BENEFIT CARDS */
-export function BenefitCards() {
-  const items = [
-    {
-      title: "Faster Cash Handling",
-      copy: "Find the right denomination quickly with organized bill and coin compartments.",
-      d: "M13 2L4 14h7l-1 8 10-12h-7l1-8z",
-    },
-    {
-      title: "Clearer Reconciliation",
-      copy: "Compare expected and counted cash with a clean close-of-shift workflow.",
-      d: "M5 12l4 4L19 6",
-    },
-    {
-      title: "Better Shift Accountability",
-      copy: "Keep opening float, drops, and closing counts visible and consistent.",
-      d: "M9 12l2 2 4-4M6 4h12v16H6z",
-    },
-    {
-      title: "Secure Cash Storage",
-      copy: "Lockable commercial construction for everyday restaurant cash protection.",
-      d: "M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7l7-4z",
-    },
-  ];
-
-  return (
-    <section className="bg-white py-16 md:py-20">
-      <FeatureWide>
-        <Inner>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {items.map((item) => (
-              <div
-                key={item.title}
-                className="rounded-2xl border border-line bg-fog p-5"
-              >
-                <OrangeIcon>
-                  <IconSvg d={item.d} />
-                </OrangeIcon>
-                <h3 className="mt-4 text-[15px] font-semibold">{item.title}</h3>
-                <p className="mt-2 text-[13px] leading-5 text-ink-muted">
-                  {item.copy}
-                </p>
-              </div>
-            ))}
-          </div>
-        </Inner>
-      </FeatureWide>
-    </section>
-  );
-}
-
-/* 9 — FAQ split layout */
-export function CashFaq({
-  items,
-}: {
-  items: { question: string; answer: string }[];
-}) {
-  return (
-    <section className="bg-fog py-20 md:py-24">
-      <FeatureWide>
-        <Inner>
-          <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
-            <div>
-              <h2 className="serif-tight text-3xl md:text-4xl">
-                Frequently Asked Questions
-              </h2>
-              <p className="mt-4 text-[15px] leading-7 text-ink-muted">
-                Answers specific to the Vertex Cash Counter Box and restaurant
-                cash handling.
-              </p>
-            </div>
-            <div className="divide-y divide-line overflow-hidden rounded-2xl border border-line bg-white">
-              {items.map((item) => (
-                <details key={item.question} className="group">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-5 text-left md:px-6">
-                    <span className="text-[15px] font-semibold text-ink">
-                      {item.question}
-                    </span>
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-line text-ink group-open:bg-fog">
-                      <span className="group-open:hidden">+</span>
-                      <span className="hidden group-open:inline">−</span>
-                    </span>
-                  </summary>
-                  <p className="max-w-2xl px-5 pb-5 text-[14px] leading-7 text-ink-muted md:px-6">
-                    {item.answer}
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-white">
+                    <LineIcon d={item.icon} />
+                  </span>
+                  <h3 className="mt-5 text-[16px] font-semibold text-ink">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-[14px] leading-6 text-ink-muted">
+                    {item.copy}
                   </p>
-                </details>
+                </article>
               ))}
             </div>
-          </div>
+          </Reveal>
         </Inner>
       </FeatureWide>
     </section>
   );
 }
 
-/* 10 — FINAL CTA */
-export function CashFinalCta() {
+/* ─── 13. FAQ ─── */
+export function CounterFaq() {
   return (
-    <section className="bg-night">
-      <FeatureWide className="grid items-center gap-10 py-16 md:grid-cols-[1.1fr_0.9fr] md:py-20">
-        <div className="text-white">
-          <h2 className="serif-tight text-3xl leading-tight md:text-5xl">
-            Keep every shift organized from the first bill to the final count.
-          </h2>
-          <p className="mt-4 max-w-lg text-[16px] leading-7 text-white/75">
-            Give your team a faster, clearer, and more secure way to manage
-            restaurant cash.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button href="/get-started">Get Started</Button>
-            <Button href="/get-started" variant="white">
-              Book a Demo
-            </Button>
-          </div>
-        </div>
-        <div className="relative overflow-hidden rounded-2xl">
-          <Image
-            src={imgDining}
-            alt="Restaurant counter setup"
-            width={900}
-            height={600}
-            className="h-[280px] w-full object-cover md:h-[320px]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
-          <div className="absolute bottom-4 left-4 right-4">
-            <CashDrawerOpen size="sm" />
-          </div>
-        </div>
+    <FaqSection
+      compact
+      eyebrow="FAQ"
+      title="Frequently Asked Questions"
+      items={[...counterFaqs]}
+    />
+  );
+}
+
+/* ─── 14. FINAL CTA ─── */
+export function CounterFinalCta() {
+  return (
+    <section className="bg-[#F5F4F2] py-20 md:py-28">
+      <FeatureWide>
+        <Inner>
+          <Reveal>
+            <div className="mx-auto max-w-3xl text-center">
+              <h2 className="serif-tight text-3xl text-ink md:text-4xl">
+                Build a checkout space that works.
+              </h2>
+              <p className="mx-auto mt-4 max-w-xl text-[16px] leading-7 text-ink-muted">
+                Create a cleaner, more professional POS environment with Vertex.
+              </p>
+              <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+                <Button href="/get-started">Get Started</Button>
+                <Button href="/get-started" variant="secondary">
+                  Contact Sales
+                </Button>
+              </div>
+            </div>
+            <div className="mx-auto mt-12 max-w-2xl">
+              <div className="rounded-[28px] border border-line bg-white p-8 shadow-mock md:p-10">
+                <CounterStationUnit size="xl" layout="full" />
+              </div>
+            </div>
+          </Reveal>
+        </Inner>
       </FeatureWide>
     </section>
   );

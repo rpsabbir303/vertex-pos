@@ -1,192 +1,398 @@
-import { cashDemoFigures } from "@/components/cash-counter/catalog";
+import { DeviceUnit } from "@/components/pos-device/mockups";
+import { MonitorUnit } from "@/components/pos-monitor/mockups";
 
-/** Photorealistic open cash drawer matching reference product shots. */
-export function CashDrawerOpen({
+type CounterSize = "sm" | "md" | "lg" | "xl";
+type CounterLayout = "full" | "device" | "monitor" | "minimal";
+
+const counterSizeMap: Record<CounterSize, { surface: string; device: "sm" | "md" | "lg"; monitor: "sm" | "md" | "lg" | "xl" }> = {
+  sm: { surface: "min-h-[140px]", device: "sm", monitor: "sm" },
+  md: { surface: "min-h-[180px]", device: "md", monitor: "md" },
+  lg: { surface: "min-h-[220px] md:min-h-[260px]", device: "lg", monitor: "lg" },
+  xl: { surface: "min-h-[260px] md:min-h-[300px]", device: "lg", monitor: "xl" },
+};
+
+/** Physical checkout counter base — the primary Cash Counter product visual. */
+function CounterBase({
+  size = "lg",
+  layout = "full",
   className = "",
-  size = "md",
 }: {
+  size?: CounterSize;
+  layout?: CounterLayout;
   className?: string;
-  size?: "sm" | "md" | "lg";
 }) {
-  const billH =
-    size === "lg" ? "h-[72px] md:h-28" : size === "sm" ? "h-14" : "h-16 md:h-20";
-  const coinH =
-    size === "lg" ? "h-14 md:h-[68px]" : size === "sm" ? "h-11" : "h-12 md:h-14";
+  const scale = counterSizeMap[size];
+  const showDevice = layout === "full" || layout === "device";
+  const showMonitor = layout === "full" || layout === "monitor";
 
   return (
-    <div className={`w-full ${className}`}>
-      <div className="overflow-hidden rounded-2xl border border-[#1a1a1a] bg-gradient-to-b from-[#2a2a2a] to-[#111] p-2.5 shadow-mock md:p-3">
-        <div className="mb-2 flex items-center justify-between px-1">
-          <span className="text-[10px] font-bold tracking-[0.18em] text-white/55">
-            VERTEX
-          </span>
-          <span className="h-1 w-10 rounded-full bg-white/15" />
-        </div>
-        <div className="rounded-xl bg-gradient-to-b from-[#e8dcc6] to-[#c9b896] p-2.5 md:p-3">
-          <div className="grid grid-cols-5 gap-1 md:gap-1.5">
-            {["$1", "$5", "$10", "$20", "$50"].map((d) => (
-              <div
-                key={d}
-                className="relative overflow-hidden rounded border border-[#a89068] bg-[#bfa882]"
-              >
-                <div className={`flex ${billH} flex-col items-center justify-end pb-1.5`}>
-                  <div className="absolute inset-x-0.5 top-1 space-y-0.5">
-                    <div className="h-1.5 rounded-sm bg-[#1f6b42]/70" />
-                    <div className="h-1.5 rounded-sm bg-[#1f6b42]/45" />
-                    <div className="h-1.5 rounded-sm bg-[#1f6b42]/30" />
-                  </div>
-                  <span className="relative z-10 rounded bg-[#1f6b42] px-1 py-0.5 text-[8px] font-bold text-white md:text-[9px]">
-                    {d}
-                  </span>
-                </div>
-                <div className="absolute inset-x-1 top-[42%] h-0.5 rounded bg-[#8a734f]/60" />
-              </div>
-            ))}
-          </div>
-          <div className="mt-1.5 grid grid-cols-5 gap-1 md:gap-1.5">
-            {["1¢", "5¢", "10¢", "25¢", "$1"].map((c) => (
-              <div
-                key={c}
-                className={`flex ${coinH} flex-col items-center justify-center rounded border border-[#a89068] bg-[#bfa882]`}
-              >
-                <span className="h-6 w-6 rounded-full border border-[#8a734f] bg-gradient-to-b from-[#d4c4a4] to-[#b8a47e] shadow-sm md:h-7 md:w-7" />
-                <span className="mt-1 text-[8px] font-semibold text-[#5c4a30] md:text-[9px]">
-                  {c}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="mt-2 flex items-center justify-between px-1">
-          <span className="flex h-5 w-5 items-center justify-center rounded-full border border-white/20 bg-[#222]">
-            <span className="h-2 w-2 rounded-full bg-[#d4af37]" />
-          </span>
-          <span className="h-1 w-12 rounded-full bg-white/20" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export function CashDrawerClosed({ className = "" }: { className?: string }) {
-  return (
-    <div className={`w-full ${className}`}>
-      <div className="overflow-hidden rounded-2xl border border-[#1a1a1a] bg-gradient-to-b from-[#2a2a2a] to-[#0f0f0f] p-3 shadow-mock">
-        <div className="mb-2 flex items-center justify-between px-1">
-          <span className="text-[10px] font-bold tracking-[0.18em] text-white/50">
-            VERTEX
-          </span>
-          <span className="text-[10px] text-white/35">Locked</span>
-        </div>
-        <div className="relative flex h-32 items-end justify-center rounded-xl border border-white/10 bg-[#161616] pb-5 md:h-40">
-          <div className="h-2 w-20 rounded-full bg-white/20" />
-          <div className="absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-[#1f1f1f]">
-            <span className="h-3 w-3 rounded-full bg-[#d4af37]" />
-            <span className="absolute -right-2 top-1/2 h-1.5 w-4 -translate-y-1/2 rounded-sm bg-[#d4af37]" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/** Hero product card — drawer on wood counter with subtle POS context. */
-export function HeroProductVisual() {
-  return (
-    <div className="relative overflow-hidden rounded-[24px] border border-line bg-[#2a221c] shadow-mock">
+    <div className={`relative w-full ${className}`}>
+      {/* Counter work surface */}
       <div
-        className="absolute inset-0 opacity-40"
-        style={{
-          backgroundImage:
-            "linear-gradient(135deg, #3d3228 0%, #1a1512 50%, #2c241e 100%)",
-        }}
-      />
-      <div className="relative p-5 md:p-7">
-        <div className="mb-4 flex items-end justify-between gap-3">
-          <div className="rounded-lg border border-white/10 bg-[#1a1a1a] px-3 py-2">
-            <p className="text-[9px] font-semibold text-white/40">POS</p>
-            <div className="mt-1 h-10 w-16 rounded bg-white/10" />
-          </div>
-          <div className="rounded-md border border-white/10 bg-[#222] px-2 py-1.5">
-            <p className="text-[8px] text-white/35">Printer</p>
-            <div className="mt-1 h-6 w-10 rounded-sm bg-white/10" />
-          </div>
+        className={`relative overflow-hidden rounded-t-2xl border border-[#c8c4bc] bg-gradient-to-b from-[#f5f2ec] to-[#e8e4dc] shadow-mock ${scale.surface}`}
+      >
+        {/* Surface edge highlight */}
+        <div
+          aria-hidden
+          className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-white/60 to-transparent"
+        />
+
+        {/* Hardware placement area */}
+        <div className="relative flex h-full items-end justify-center gap-3 px-4 pb-3 pt-8 md:gap-6 md:px-8 md:pb-4 md:pt-10">
+          {showDevice ? (
+            <div className="w-[42%] max-w-[160px] shrink-0 md:max-w-[200px]">
+              <DeviceUnit size={scale.device} screen="service" />
+            </div>
+          ) : null}
+          {showMonitor ? (
+            <div className="w-[42%] max-w-[160px] shrink-0 md:max-w-[200px]">
+              <MonitorUnit
+                size={scale.monitor === "xl" ? "lg" : scale.monitor}
+                angle="tilt"
+                screen="showcase"
+                label="POS Monitor"
+              />
+            </div>
+          ) : null}
+          {layout === "minimal" ? (
+            <div className="flex flex-1 items-center justify-center">
+              <div className="h-16 w-3/4 max-w-[280px] rounded-lg border border-dashed border-[#c8c4bc] bg-white/40" />
+            </div>
+          ) : null}
         </div>
-        <CashDrawerOpen size="lg" />
-        <p className="mt-4 text-center text-[12px] font-semibold text-white/70">
-          Vertex Cash Counter Box
+
+        {/* Cable management hint */}
+        {layout === "full" ? (
+          <div
+            aria-hidden
+            className="absolute bottom-2 left-1/2 h-1.5 w-16 -translate-x-1/2 rounded-full bg-[#d4cfc6]"
+          />
+        ) : null}
+      </div>
+
+      {/* Counter front panel */}
+      <div className="rounded-b-xl border border-t-0 border-[#b8b4ac] bg-gradient-to-b from-[#3a3632] to-[#1f1d1a] px-4 py-3 md:py-4">
+        <div className="flex items-center justify-between">
+          <span className="text-[9px] font-bold tracking-[0.2em] text-white/40 md:text-[10px]">
+            VERTEX
+          </span>
+          <span className="h-1 w-12 rounded-full bg-white/15 md:w-16" />
+          <span className="text-[9px] font-medium text-white/35 md:text-[10px]">
+            CASH COUNTER
+          </span>
+        </div>
+      </div>
+
+      {/* Counter legs / base */}
+      <div className="mx-auto mt-1 flex w-[88%] justify-between">
+        <div className="h-3 w-3 rounded-b-sm bg-[#2a2826] md:h-4 md:w-4" />
+        <div className="h-3 w-3 rounded-b-sm bg-[#2a2826] md:h-4 md:w-4" />
+      </div>
+    </div>
+  );
+}
+
+/** Primary Cash Counter hardware visual — complete checkout station. */
+export function CounterStationUnit({
+  size = "lg",
+  layout = "full",
+  className = "",
+  imageSrc,
+}: {
+  size?: CounterSize;
+  layout?: CounterLayout;
+  className?: string;
+  imageSrc?: string;
+}) {
+  if (imageSrc) {
+    return (
+      <div className={`relative mx-auto w-full max-w-xl ${className}`}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={imageSrc}
+          alt="Vertex Cash Counter checkout station"
+          className="w-full object-contain"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className={`relative mx-auto w-full max-w-xl ${className}`}>
+      <CounterBase size={size} layout={layout} />
+    </div>
+  );
+}
+
+/** Premium hero presentation on white stage. */
+export function CounterHeroVisual({ imageSrc }: { imageSrc?: string }) {
+  return (
+    <div className="relative mx-auto w-full max-w-2xl">
+      <div className="rounded-[32px] border border-line bg-white p-8 shadow-mock md:p-12">
+        <CounterStationUnit size="xl" layout="full" imageSrc={imageSrc} />
+      </div>
+      <div
+        aria-hidden
+        className="absolute -bottom-4 left-1/2 h-4 w-[70%] -translate-x-1/2 rounded-full bg-black/10 blur-xl"
+      />
+    </div>
+  );
+}
+
+/** Business environment scene — complete station in counter context. */
+export function CounterBusinessScene({
+  size = "lg" as CounterSize,
+  layout = "full" as CounterLayout,
+}: {
+  size?: CounterSize;
+  layout?: CounterLayout;
+}) {
+  return (
+    <div className="relative overflow-hidden rounded-[28px] border border-line bg-[#F0EDE7]">
+      {/* Ambient business environment hints */}
+      <div
+        aria-hidden
+        className="absolute left-4 top-4 rounded-lg border border-line/60 bg-white/60 px-3 py-2"
+      >
+        <p className="text-[9px] font-semibold uppercase tracking-[0.12em] text-ink-faint">
+          Checkout
+        </p>
+      </div>
+      <div
+        aria-hidden
+        className="absolute right-4 top-4 h-8 w-8 rounded-full border border-line/60 bg-white/50"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-x-8 bottom-0 h-12 rounded-t-[20px] bg-[#E8E4DC]"
+      />
+      <div className="relative flex min-h-[300px] items-end justify-center px-6 pb-8 pt-14 md:min-h-[380px]">
+        <div className="w-full max-w-md">
+          <CounterStationUnit size={size} layout={layout} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Checkout experience — station with active POS workflow. */
+export function CounterCheckoutScene({
+  size = "lg" as CounterSize,
+}: {
+  size?: CounterSize;
+}) {
+  return (
+    <div className="relative overflow-hidden rounded-[28px] border border-line bg-white shadow-card">
+      <div className="border-b border-line bg-[#FAF8F4] px-5 py-3">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-orange">
+          Active checkout
+        </p>
+      </div>
+      <div className="relative p-6 md:p-8">
+        <div className="mx-auto max-w-md">
+          <CounterBase size={size} layout="full" />
+        </div>
+        <p className="mt-5 text-center text-[12px] text-ink-faint">
+          POS Device + Monitor on Vertex Cash Counter
         </p>
       </div>
     </div>
   );
 }
 
-export function CashManagementUi() {
-  const rows = [
-    ["Opening Cash", cashDemoFigures.opening, ""],
-    ["Cash Sales", cashDemoFigures.cashSales, "text-[#7ddea8]"],
-    ["Cash Drops", cashDemoFigures.cashDrops, "text-[#f0a0a0]"],
-    ["Expected Cash", cashDemoFigures.expected, ""],
-    ["Counted Cash", cashDemoFigures.counted, ""],
-    ["Variance", cashDemoFigures.variance, "text-[#7ddea8]"],
-  ] as const;
-
+/** Ecosystem visual — Cash Counter with Vertex hardware family. */
+export function CounterEcosystemVisual() {
   return (
-    <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#141820] shadow-mock">
-      <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
-        <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-orange">
-            Cash Management
-          </p>
-          <p className="mt-1 text-[15px] font-semibold text-white">
-            Shift reconciliation
-          </p>
-        </div>
-        <span className="rounded-full bg-[#1F7A45]/25 px-2.5 py-1 text-[11px] font-semibold text-[#7ddea8]">
-          Balanced
-        </span>
+    <div className="grid grid-cols-2 gap-4">
+      <div className="col-span-2 rounded-2xl border border-orange/20 bg-orange-soft/30 p-6 shadow-card md:p-8">
+        <p className="mb-4 text-center text-[11px] font-semibold uppercase tracking-[0.12em] text-orange">
+          Complete checkout setup
+        </p>
+        <CounterStationUnit size="lg" layout="full" />
       </div>
-      <div className="p-5">
-        {rows.map(([label, value, color]) => (
-          <div
-            key={label}
-            className="flex items-center justify-between border-b border-white/8 py-3 last:border-0"
-          >
-            <span className="text-[13px] text-white/55">{label}</span>
-            <span className={`text-[15px] font-semibold text-white ${color}`}>
-              {value}
-            </span>
-          </div>
-        ))}
+      <div className="flex items-center justify-center rounded-2xl border border-line bg-white p-5 shadow-card">
+        <DeviceUnit size="sm" screen="order" />
+      </div>
+      <div className="flex items-center justify-center rounded-2xl border border-line bg-white p-5 shadow-card">
+        <MonitorUnit size="sm" angle="tilt" screen="showcase" />
       </div>
     </div>
   );
 }
 
-export function OrangeIcon({
-  children,
-  dark = false,
+/** Small business-type preview card. */
+export function CounterBusinessCard({
+  title,
+  layout = "full",
 }: {
-  children: React.ReactNode;
-  dark?: boolean;
+  title: string;
+  layout?: CounterLayout;
 }) {
   return (
-    <span
-      className={`flex h-10 w-10 items-center justify-center rounded-xl ${
-        dark
-          ? "border border-orange/30 bg-orange/10 text-orange"
-          : "bg-orange-soft text-orange"
-      }`}
-    >
-      {children}
-    </span>
+    <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-card transition-shadow hover:shadow-mock">
+      <div className="border-b border-line bg-[#FAF8F4] px-4 py-3">
+        <p className="text-[12px] font-semibold text-ink">{title}</p>
+      </div>
+      <div className="p-4">
+        <CounterStationUnit size="sm" layout={layout} />
+      </div>
+    </div>
   );
 }
 
-export function IconSvg({ d }: { d: string }) {
+const counterDetailCallouts = {
+  left: [
+    {
+      id: "device",
+      title: "POS Device position",
+      copy: "Dedicated placement for your staff-facing POS terminal.",
+    },
+    {
+      id: "workspace",
+      title: "Checkout workspace",
+      copy: "Organized work surface for everyday counter operations.",
+    },
+    {
+      id: "cables",
+      title: "Cable management",
+      copy: "Contact Vertex for available cable management configurations.",
+    },
+  ],
+  right: [
+    {
+      id: "monitor",
+      title: "Monitor position",
+      copy: "Customer-facing display placement for order and total visibility.",
+    },
+    {
+      id: "surface",
+      title: "Work surface",
+      copy: "Clean countertop designed for professional checkout presentation.",
+    },
+    {
+      id: "hardware",
+      title: "Hardware mounting area",
+      copy: "Designed to accommodate Vertex POS hardware on the counter.",
+    },
+  ],
+} as const;
+
+function CounterDetailCallout({
+  title,
+  copy,
+  side,
+}: {
+  title: string;
+  copy: string;
+  side: "left" | "right";
+}) {
+  const isLeft = side === "left";
   return (
-    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.7">
-      <path d={d} strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
+    <div
+      className={`flex items-center gap-3 ${
+        isLeft ? "flex-row" : "flex-row-reverse"
+      }`}
+    >
+      <div className={`min-w-0 flex-1 ${isLeft ? "text-right" : "text-left"}`}>
+        <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-ink">
+          {title}
+        </p>
+        <p className="mt-1.5 text-[13px] leading-5 text-ink-muted">{copy}</p>
+      </div>
+      <div
+        className={`flex shrink-0 items-center ${
+          isLeft ? "" : "flex-row-reverse"
+        }`}
+        aria-hidden
+      >
+        <span className="h-px w-8 bg-orange/70 md:w-12" />
+        <span className="h-2.5 w-2.5 rounded-full bg-orange ring-4 ring-orange/15" />
+      </div>
+    </div>
+  );
+}
+
+function CounterMobileDetailCard({
+  title,
+  copy,
+}: {
+  title: string;
+  copy: string;
+}) {
+  return (
+    <div className="rounded-xl border border-line bg-white p-4">
+      <div className="mb-2 flex items-center gap-2">
+        <span className="h-2 w-2 rounded-full bg-orange" aria-hidden />
+        <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-ink">
+          {title}
+        </p>
+      </div>
+      <p className="text-[13px] leading-5 text-ink-muted">{copy}</p>
+    </div>
+  );
+}
+
+/** Annotated hardware diagram — complete checkout station with callouts. */
+export function CounterProductDetailsDiagram({
+  imageSrc,
+}: {
+  imageSrc?: string;
+}) {
+  return (
+    <div className="w-full">
+      <div className="hidden items-center gap-4 lg:grid lg:grid-cols-[1fr_minmax(300px,480px)_1fr] lg:gap-6 xl:gap-10">
+        <div className="flex flex-col justify-center gap-10 py-4">
+          {counterDetailCallouts.left.map((item) => (
+            <CounterDetailCallout
+              key={item.id}
+              title={item.title}
+              copy={item.copy}
+              side="left"
+            />
+          ))}
+        </div>
+        <div className="relative mx-auto w-full max-w-[480px]">
+          <div
+            aria-hidden
+            className="absolute inset-x-6 bottom-2 top-10 rounded-[32px] bg-[#F0EDE7]"
+          />
+          <div className="relative px-2 py-8">
+            <CounterStationUnit
+              size="xl"
+              layout="full"
+              imageSrc={imageSrc}
+            />
+          </div>
+        </div>
+        <div className="flex flex-col justify-center gap-10 py-4">
+          {counterDetailCallouts.right.map((item) => (
+            <CounterDetailCallout
+              key={item.id}
+              title={item.title}
+              copy={item.copy}
+              side="right"
+            />
+          ))}
+        </div>
+      </div>
+      <div className="lg:hidden">
+        <div className="mx-auto max-w-md">
+          <div className="rounded-[28px] border border-line bg-white p-6 shadow-card">
+            <CounterStationUnit size="lg" layout="full" imageSrc={imageSrc} />
+          </div>
+        </div>
+        <div className="mt-8 grid gap-3 sm:grid-cols-2">
+          {[...counterDetailCallouts.left, ...counterDetailCallouts.right].map(
+            (item) => (
+              <CounterMobileDetailCard
+                key={item.id}
+                title={item.title}
+                copy={item.copy}
+              />
+            ),
+          )}
+        </div>
+      </div>
+    </div>
   );
 }

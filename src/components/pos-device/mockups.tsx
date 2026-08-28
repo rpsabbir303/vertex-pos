@@ -1,5 +1,94 @@
 import { StatusPill } from "@/components/production-planner/mockups";
 
+type DeviceScreen = "service" | "order" | "table" | "dashboard";
+type DeviceSize = "sm" | "md" | "lg" | "xl";
+
+const deviceSizeMap: Record<DeviceSize, string> = {
+  sm: "max-w-[200px]",
+  md: "max-w-[280px]",
+  lg: "max-w-[360px]",
+  xl: "max-w-[440px]",
+};
+
+function DeviceScreenContent({ screen }: { screen: DeviceScreen }) {
+  switch (screen) {
+    case "order":
+      return <MenuOrderScreen />;
+    case "table":
+      return <TableCheckScreen />;
+    case "dashboard":
+      return <ServiceDashboard />;
+    default:
+      return <TodaysServiceScreen />;
+  }
+}
+
+/** Primary POS Device hardware visual — swap imageSrc when photography is available. */
+export function DeviceUnit({
+  size = "lg",
+  screen = "service",
+  className = "",
+  imageSrc,
+}: {
+  size?: DeviceSize;
+  screen?: DeviceScreen;
+  className?: string;
+  imageSrc?: string;
+}) {
+  return (
+    <div className={`relative mx-auto w-full ${deviceSizeMap[size]} ${className}`}>
+      <TerminalFrame>
+        {imageSrc ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={imageSrc}
+            alt="Vertex POS Device"
+            className="aspect-[4/3] w-full object-contain"
+          />
+        ) : (
+          <DeviceScreenContent screen={screen} />
+        )}
+      </TerminalFrame>
+    </div>
+  );
+}
+
+/** Premium hero presentation on white stage. */
+export function DeviceHeroVisual({ imageSrc }: { imageSrc?: string }) {
+  return (
+    <div className="relative mx-auto w-full max-w-xl">
+      <div className="rounded-[32px] border border-line bg-white p-10 shadow-mock md:p-14">
+        <DeviceUnit size="xl" screen="service" imageSrc={imageSrc} />
+      </div>
+      <div
+        aria-hidden
+        className="absolute -bottom-4 left-1/2 h-4 w-[70%] -translate-x-1/2 rounded-full bg-black/10 blur-xl"
+      />
+    </div>
+  );
+}
+
+/** Counter environment — device as visual hero, no stock photography. */
+export function DeviceCounterScene({
+  screen = "order",
+  size = "xl" as DeviceSize,
+}: {
+  screen?: DeviceScreen;
+  size?: DeviceSize;
+}) {
+  return (
+    <div className="relative overflow-hidden rounded-[28px] border border-line bg-[#F0EDE7]">
+      <div
+        aria-hidden
+        className="absolute inset-x-8 bottom-0 h-20 rounded-t-[20px] bg-[#E8E4DC]"
+      />
+      <div className="relative flex min-h-[320px] items-end justify-center px-6 pb-8 pt-12 md:min-h-[380px]">
+        <DeviceUnit size={size} screen={screen} />
+      </div>
+    </div>
+  );
+}
+
 export function TerminalFrame({
   children,
   className = "",
@@ -255,6 +344,159 @@ export function MenuOrderScreen() {
         <span className="rounded-lg bg-orange py-2 text-center text-[11px] font-semibold text-white">
           Checkout
         </span>
+      </div>
+    </div>
+  );
+}
+
+const deviceDetailCallouts = {
+  left: [
+    {
+      id: "display",
+      title: "Touchscreen display",
+      copy: '15.6" Full HD touchscreen for fast, responsive staff workflows.',
+    },
+    {
+      id: "interface",
+      title: "Staff interface",
+      copy: "Clear navigation for orders, tables, menu, and checkout.",
+    },
+    {
+      id: "build",
+      title: "Commercial build",
+      copy: "Restaurant-ready enclosure designed for everyday counter use.",
+    },
+  ],
+  right: [
+    {
+      id: "software",
+      title: "Vertex POS",
+      copy: "Runs Vertex POS for orders, kitchen routing, and reporting.",
+    },
+    {
+      id: "payments",
+      title: "Checkout workflow",
+      copy: "Integrated payment and checkout from the same terminal.",
+    },
+    {
+      id: "connectivity",
+      title: "Connectivity",
+      copy: "Wi-Fi, Ethernet, and Bluetooth for your restaurant setup.",
+    },
+  ],
+} as const;
+
+function DeviceDetailCallout({
+  title,
+  copy,
+  side,
+}: {
+  title: string;
+  copy: string;
+  side: "left" | "right";
+}) {
+  const isLeft = side === "left";
+  return (
+    <div
+      className={`flex items-center gap-3 ${
+        isLeft ? "flex-row" : "flex-row-reverse"
+      }`}
+    >
+      <div className={`min-w-0 flex-1 ${isLeft ? "text-right" : "text-left"}`}>
+        <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-ink">
+          {title}
+        </p>
+        <p className="mt-1.5 text-[13px] leading-5 text-ink-muted">{copy}</p>
+      </div>
+      <div
+        className={`flex shrink-0 items-center ${
+          isLeft ? "" : "flex-row-reverse"
+        }`}
+        aria-hidden
+      >
+        <span className="h-px w-8 bg-orange/70 md:w-12" />
+        <span className="h-2.5 w-2.5 rounded-full bg-orange ring-4 ring-orange/15" />
+      </div>
+    </div>
+  );
+}
+
+function DeviceMobileDetailCard({
+  title,
+  copy,
+}: {
+  title: string;
+  copy: string;
+}) {
+  return (
+    <div className="rounded-xl border border-line bg-white p-4">
+      <div className="mb-2 flex items-center gap-2">
+        <span className="h-2 w-2 rounded-full bg-orange" aria-hidden />
+        <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-ink">
+          {title}
+        </p>
+      </div>
+      <p className="text-[13px] leading-5 text-ink-muted">{copy}</p>
+    </div>
+  );
+}
+
+/** Annotated hardware diagram — premium product presentation. */
+export function DeviceProductDetailsDiagram({
+  imageSrc,
+}: {
+  imageSrc?: string;
+}) {
+  return (
+    <div className="w-full">
+      <div className="hidden items-center gap-4 lg:grid lg:grid-cols-[1fr_minmax(300px,440px)_1fr] lg:gap-6 xl:gap-10">
+        <div className="flex flex-col justify-center gap-10 py-4">
+          {deviceDetailCallouts.left.map((item) => (
+            <DeviceDetailCallout
+              key={item.id}
+              title={item.title}
+              copy={item.copy}
+              side="left"
+            />
+          ))}
+        </div>
+        <div className="relative mx-auto w-full max-w-[440px]">
+          <div
+            aria-hidden
+            className="absolute inset-x-8 bottom-2 top-10 rounded-[32px] bg-[#F0EDE7]"
+          />
+          <div className="relative px-2 py-8">
+            <DeviceUnit size="xl" screen="table" imageSrc={imageSrc} />
+          </div>
+        </div>
+        <div className="flex flex-col justify-center gap-10 py-4">
+          {deviceDetailCallouts.right.map((item) => (
+            <DeviceDetailCallout
+              key={item.id}
+              title={item.title}
+              copy={item.copy}
+              side="right"
+            />
+          ))}
+        </div>
+      </div>
+      <div className="lg:hidden">
+        <div className="mx-auto max-w-sm">
+          <div className="rounded-[28px] border border-line bg-white p-6 shadow-card">
+            <DeviceUnit size="lg" screen="table" imageSrc={imageSrc} />
+          </div>
+        </div>
+        <div className="mt-8 grid gap-3 sm:grid-cols-2">
+          {[...deviceDetailCallouts.left, ...deviceDetailCallouts.right].map(
+            (item) => (
+              <DeviceMobileDetailCard
+                key={item.id}
+                title={item.title}
+                copy={item.copy}
+              />
+            ),
+          )}
+        </div>
       </div>
     </div>
   );
