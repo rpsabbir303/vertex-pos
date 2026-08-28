@@ -1,27 +1,26 @@
-import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { FeatureWide, SectionLabel } from "@/components/ui/LayoutBits";
 import { FaqSection } from "@/components/layout/FaqSection";
 import {
+  accurateCountingFeatures,
   cashCounterProduct,
-  checkoutExperienceBullets,
-  counterBusinessTypes,
-  counterDesignFeatures,
-  counterEcosystemProducts,
+  cashCounterUseCases,
   counterFaqs,
-  counterIncluded,
-  counterPeaceOfMind,
-  counterSetupOptions,
   counterTrustIndicators,
+  everydayOperationsFeatures,
+  fasterCashBullets,
+  peaceOfMindBenefits,
 } from "@/components/cash-counter/catalog";
 import {
-  CounterBusinessCard,
-  CounterBusinessScene,
-  CounterCheckoutScene,
-  CounterEcosystemVisual,
+  BanknoteCounterUnit,
+  BusinessEnvironmentVisual,
   CounterHeroVisual,
   CounterProductDetailsDiagram,
-  CounterStationUnit,
+  CountingSceneVisual,
+  OperatorSceneVisual,
+  ProductOnlyVisual,
+  TrustAtmosphereVisual,
+  UseCaseCard,
 } from "@/components/cash-counter/mockups";
 import { Reveal } from "@/components/pos-monitor/Reveal";
 
@@ -126,10 +125,10 @@ export function CounterHero() {
                   {cashCounterProduct.tagline}
                 </h1>
                 <p className="mt-5 text-[16px] leading-7 text-ink-muted md:text-[17px]">
-                  {cashCounterProduct.heroSupport}
+                  {cashCounterProduct.description}
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <Button href="/get-started">Get Started</Button>
+                  <Button href="/get-started">Get a Quote</Button>
                   <Button href="#features" variant="secondary">
                     Explore Features
                   </Button>
@@ -150,132 +149,75 @@ export function CounterHero() {
 export function ProductIntroduction() {
   return (
     <FeatureSection
-      eyebrow="Checkout station"
-      title="Everything your checkout needs."
+      eyebrow="Cash handling"
+      title="Everything you need to count cash."
       copy={cashCounterProduct.intro}
       bullets={cashCounterProduct.benefits}
-      visual={
-        <div className="rounded-[28px] border border-line bg-white p-8 shadow-card md:p-10">
-          <CounterStationUnit size="lg" layout="full" />
-        </div>
-      }
+      visual={<CountingSceneVisual />}
     />
   );
 }
 
-/* ─── 3. COUNTER DESIGN ─── */
-export function CounterDesignSection() {
+/* ─── 3. ACCURATE COUNTING ─── */
+export function AccurateCountingSection() {
   return (
     <FeatureSection
       id="features"
-      title="Designed around your POS."
-      copy="The Vertex Cash Counter is built to accommodate your POS equipment and create an organized, professional checkout environment."
-      bullets={counterDesignFeatures}
+      title="Designed for accurate counting."
+      copy="Make everyday cash handling easier with a dedicated counting machine designed to process banknotes efficiently and consistently."
+      bullets={accurateCountingFeatures}
       bg="fog"
       reverse
-      visual={
-        <div className="rounded-[28px] border border-line bg-white p-8 shadow-card md:p-10">
-          <CounterStationUnit size="lg" layout="full" />
-        </div>
-      }
+      visual={<BusinessEnvironmentVisual />}
     />
   );
 }
 
-/* ─── 4. REAL BUSINESS ─── */
-export function RealBusinessSection() {
+/* ─── 4. FASTER CASH HANDLING ─── */
+export function FasterCashSection() {
   return (
     <FeatureSection
-      title="Made for real-world business."
-      copy="The Vertex Cash Counter fits naturally into everyday customer-facing environments — from retail floors to restaurant counters and service desks."
-      visual={<CounterBusinessScene size="lg" layout="full" />}
+      title="A faster way to handle cash."
+      copy="Spend less time manually counting bills and more time running your business with a straightforward cash-counting workflow."
+      bullets={fasterCashBullets}
+      visual={<OperatorSceneVisual />}
     />
   );
 }
 
-/* ─── 5. CHECKOUT EXPERIENCE ─── */
-export function CheckoutExperienceSection() {
+/* ─── 5. EVERYDAY OPERATIONS ─── */
+export function EverydayOperationsSection() {
   return (
     <FeatureSection
-      title="A better space for every transaction."
-      copy="A dedicated POS counter creates a cleaner, more professional checkout experience — with organized hardware placement and a clear workspace for staff and customers."
-      bullets={checkoutExperienceBullets}
+      title="Built for everyday cash operations."
+      copy="A compact professional cash-counting solution designed for businesses that handle banknotes regularly."
+      bullets={everydayOperationsFeatures}
       bg="fog"
       reverse
-      visual={<CounterCheckoutScene size="lg" />}
+      visual={<ProductOnlyVisual />}
     />
   );
 }
 
-/* ─── 6. COMPLETE POS SETUP ─── */
-export function CompletePosSetupSection() {
+/* ─── 6. HARDWARE DETAILS ─── */
+export function HardwareDetailsSection() {
   return (
     <section className="bg-white py-20 md:py-28">
       <FeatureWide>
         <Inner>
           <Reveal>
-            <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-              <div>
-                <SectionLabel>Vertex ecosystem</SectionLabel>
-                <h2 className="serif-tight text-3xl text-ink md:text-[40px]">
-                  Your POS. Your workspace. One complete setup.
-                </h2>
-                <p className="mt-4 text-[16px] leading-7 text-ink-muted">
-                  Combine the Cash Counter with Vertex POS hardware to create a
-                  complete, connected checkout environment.
-                </p>
-                <ul className="mt-8 flex flex-wrap gap-3">
-                  {counterEcosystemProducts.map((product) => (
-                    <li key={product.href}>
-                      <Link
-                        href={product.href}
-                        className={`inline-flex rounded-full border px-4 py-2 text-[13px] font-semibold transition-colors ${
-                          "primary" in product && product.primary
-                            ? "border-orange/40 bg-orange-soft/50 text-orange"
-                            : "border-line bg-white text-ink hover:border-orange/40 hover:text-orange"
-                        }`}
-                      >
-                        {product.label} →
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <CounterEcosystemVisual />
-            </div>
-          </Reveal>
-        </Inner>
-      </FeatureWide>
-    </section>
-  );
-}
-
-/* ─── 7. FLEXIBLE BUSINESS ─── */
-export function FlexibleBusinessSection() {
-  return (
-    <section className="bg-[#F5F4F2] py-20 md:py-28">
-      <FeatureWide>
-        <Inner>
-          <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
-              <SectionLabel>Business types</SectionLabel>
+            <div className="mx-auto max-w-3xl text-center">
+              <SectionLabel>Hardware details</SectionLabel>
               <h2 className="serif-tight mt-2 text-3xl text-ink md:text-4xl">
-                Designed to fit your business.
+                Built to keep cash counting simple.
               </h2>
-              <p className="mt-4 text-[15px] leading-7 text-ink-muted">
-                A professional checkout station for different customer-facing
-                environments.
+              <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-7 text-ink-muted">
+                Explore the physical design and everyday counting capabilities of
+                the Vertex Cash Counter.
               </p>
             </div>
-            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {counterBusinessTypes.map((type) => (
-                <article key={type.title}>
-                  <CounterBusinessCard title={type.title} layout="full" />
-                  <p className="mt-4 text-[14px] leading-6 text-ink-muted">
-                    {type.copy}
-                  </p>
-                </article>
-              ))}
+            <div className="mt-12 md:mt-16">
+              <CounterProductDetailsDiagram />
             </div>
           </Reveal>
         </Inner>
@@ -284,7 +226,7 @@ export function FlexibleBusinessSection() {
   );
 }
 
-/* ─── 8. PRODUCT DETAILS ─── */
+/* ─── 7. PRODUCT SPECIFICATIONS ─── */
 export function HardwareSpecs() {
   return (
     <section id="specifications" className="bg-white py-20 md:py-28">
@@ -295,11 +237,11 @@ export function HardwareSpecs() {
               <div>
                 <SectionLabel>Product details</SectionLabel>
                 <h2 className="serif-tight mt-2 text-3xl text-ink md:text-4xl">
-                  {cashCounterProduct.name} specifications
+                  Vertex Cash Counter specifications
                 </h2>
                 <p className="mt-4 text-[15px] leading-7 text-ink-muted">
-                  Confirmed product information for the Vertex Cash Counter.
-                  Contact sales for configuration details.
+                  Product specifications for the Vertex Cash Counter. Contact
+                  sales for configuration and additional details.
                 </p>
                 <dl className="mt-8 divide-y divide-line rounded-2xl border border-line bg-[#FAF8F4]">
                   {cashCounterProduct.specs.map((spec) => (
@@ -318,9 +260,9 @@ export function HardwareSpecs() {
                 </dl>
               </div>
               <div className="rounded-[28px] border border-line bg-white p-8 shadow-card md:p-10">
-                <CounterStationUnit size="lg" layout="full" />
+                <BanknoteCounterUnit size="lg" variant="product" />
                 <div className="mt-6 flex flex-wrap justify-center gap-2">
-                  {["POS Device", "POS Monitor", "Work surface", "Vertex POS"].map(
+                  {["Banknotes", "Digital display", "Auto feed", "Commercial"].map(
                     (label) => (
                       <span
                         key={label}
@@ -340,24 +282,66 @@ export function HardwareSpecs() {
   );
 }
 
-/* ─── 9. PRODUCT ANNOTATION ─── */
-export function ProductComponentsShowcase() {
+/* ─── 8. USE CASES ─── */
+export function UseCasesSection() {
   return (
     <section className="bg-white py-20 md:py-28">
       <FeatureWide>
         <Inner>
           <Reveal>
-            <div className="mx-auto max-w-3xl text-center">
-              <SectionLabel>Components</SectionLabel>
+            <div className="mx-auto max-w-2xl text-center">
+              <SectionLabel>Use cases</SectionLabel>
               <h2 className="serif-tight mt-2 text-3xl text-ink md:text-4xl">
-                Built for the modern checkout.
+                Built for businesses that handle cash.
               </h2>
-              <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-7 text-ink-muted">
-                Explore the design of the Vertex Cash Counter checkout station.
+              <p className="mt-4 text-[15px] leading-7 text-ink-muted">
+                The Vertex Cash Counter helps businesses process banknotes
+                efficiently wherever accurate and organized cash handling matters.
               </p>
             </div>
-            <div className="mt-12 md:mt-16">
-              <CounterProductDetailsDiagram />
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {cashCounterUseCases.map((item) => (
+                <article key={item.title}>
+                  <UseCaseCard title={item.title} />
+                  <p className="mt-4 text-[14px] leading-6 text-ink-muted">
+                    {item.copy}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </Reveal>
+        </Inner>
+      </FeatureWide>
+    </section>
+  );
+}
+
+/* ─── 9. COMPARISON CTA ─── */
+export function ComparisonCtaSection() {
+  return (
+    <section className="bg-[#F5F4F2] py-20 md:py-28">
+      <FeatureWide>
+        <Inner>
+          <Reveal>
+            <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+              <div>
+                <h2 className="serif-tight text-3xl text-ink md:text-[40px]">
+                  Choose a simpler way to count cash.
+                </h2>
+                <p className="mt-4 text-[16px] leading-7 text-ink-muted">
+                  Make everyday cash handling faster and more organized with the
+                  Vertex Cash Counter.
+                </p>
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <Button href="/get-started">Get a Quote</Button>
+                  <Button href="/get-started" variant="secondary">
+                    Contact Sales
+                  </Button>
+                </div>
+              </div>
+              <div className="rounded-[28px] border border-line bg-white p-8 shadow-card md:p-10">
+                <BanknoteCounterUnit size="lg" variant="counting" />
+              </div>
             </div>
           </Reveal>
         </Inner>
@@ -375,14 +359,14 @@ export function CounterTrustSection() {
           <Reveal>
             <div className="mx-auto max-w-3xl text-center">
               <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-orange-mid">
-                Trusted at the counter
+                Cash counting
               </p>
               <h2 className="serif-tight mt-6 text-3xl text-white md:text-4xl">
-                Designed for better business.
+                Peace of mind with every count.
               </h2>
               <p className="mx-auto mt-5 max-w-2xl text-[16px] leading-7 text-white/60">
-                A professional checkout station designed to create a cleaner,
-                more organized POS environment for everyday business operations.
+                A professional automatic banknote counting machine designed for
+                everyday business cash handling.
               </p>
               <div className="mt-10 flex flex-wrap justify-center gap-3">
                 {counterTrustIndicators.map((item) => (
@@ -394,6 +378,7 @@ export function CounterTrustSection() {
                   </span>
                 ))}
               </div>
+              <TrustAtmosphereVisual />
             </div>
           </Reveal>
         </Inner>
@@ -402,99 +387,7 @@ export function CounterTrustSection() {
   );
 }
 
-/* ─── 11. COMPLETE SETUP ─── */
-export function CompleteSetupSection() {
-  return (
-    <section className="bg-white py-20 md:py-28">
-      <FeatureWide>
-        <Inner>
-          <Reveal>
-            <div className="mx-auto max-w-2xl text-center">
-              <SectionLabel>Setup</SectionLabel>
-              <h2 className="serif-tight mt-2 text-3xl text-ink md:text-4xl">
-                Create your complete checkout setup.
-              </h2>
-              <p className="mt-4 text-[15px] leading-7 text-ink-muted">
-                Start with the Cash Counter or plan a full Vertex checkout
-                environment with sales.
-              </p>
-            </div>
-            <div className="mt-12 grid gap-6 md:grid-cols-2">
-              {counterSetupOptions.map((option) => (
-                <article
-                  key={option.name}
-                  className={`flex flex-col rounded-2xl border p-6 transition-shadow hover:shadow-mock md:p-8 ${
-                    option.featured
-                      ? "border-orange/30 bg-orange-soft/40 shadow-card"
-                      : "border-line bg-white shadow-card"
-                  }`}
-                >
-                  <div className="mb-6 flex justify-center rounded-xl border border-line bg-[#FAF8F4] p-6">
-                    <CounterStationUnit
-                      size="sm"
-                      layout={option.layout === "ecosystem" ? "full" : "minimal"}
-                    />
-                  </div>
-                  <h3 className="text-[20px] font-semibold text-ink">
-                    {option.name}
-                  </h3>
-                  <p className="mt-2 text-[14px] leading-6 text-ink-muted">
-                    {option.description}
-                  </p>
-                  <ul className="mt-6 flex-1 space-y-2">
-                    {option.features.map((feature) => (
-                      <li
-                        key={feature}
-                        className="flex items-start gap-2 text-[14px] text-ink"
-                      >
-                        <span
-                          className="mt-2 h-1 w-1 shrink-0 rounded-full bg-orange"
-                          aria-hidden
-                        />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="mt-8">
-                    <Button
-                      href={option.href}
-                      variant={option.featured ? "primary" : "secondary"}
-                      className="w-full sm:w-auto"
-                    >
-                      {option.cta}
-                    </Button>
-                  </div>
-                </article>
-              ))}
-            </div>
-            <div className="mt-8 grid gap-4 md:grid-cols-2">
-              {counterIncluded.map((item) => (
-                <div
-                  key={item.title}
-                  className="flex gap-5 rounded-2xl border border-line bg-[#FAF8F4] p-6"
-                >
-                  <div className="w-[120px] shrink-0">
-                    <CounterStationUnit size="sm" layout="minimal" />
-                  </div>
-                  <div>
-                    <h3 className="text-[17px] font-semibold text-ink">
-                      {item.title}
-                    </h3>
-                    <p className="mt-2 text-[14px] leading-6 text-ink-muted">
-                      {item.copy}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </Inner>
-      </FeatureWide>
-    </section>
-  );
-}
-
-/* ─── 12. PEACE OF MIND ─── */
+/* ─── 11. PEACE OF MIND ─── */
 export function PeaceOfMindSection() {
   return (
     <section className="bg-white py-20 md:py-24">
@@ -506,12 +399,12 @@ export function PeaceOfMindSection() {
                 Peace of mind with Vertex.
               </h2>
               <p className="mt-4 text-[15px] leading-7 text-ink-muted">
-                Hardware and support designed to keep your checkout running
-                smoothly.
+                Hardware designed to keep everyday cash handling organized and
+                efficient.
               </p>
             </div>
             <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {counterPeaceOfMind.map((item) => (
+              {peaceOfMindBenefits.map((item) => (
                 <article
                   key={item.title}
                   className="rounded-2xl border border-line bg-[#FAF8F4] p-6 transition-shadow hover:shadow-card"
@@ -535,7 +428,7 @@ export function PeaceOfMindSection() {
   );
 }
 
-/* ─── 13. FAQ ─── */
+/* ─── 12. FAQ ─── */
 export function CounterFaq() {
   return (
     <FaqSection
@@ -547,7 +440,7 @@ export function CounterFaq() {
   );
 }
 
-/* ─── 14. FINAL CTA ─── */
+/* ─── 13. FINAL CTA ─── */
 export function CounterFinalCta() {
   return (
     <section className="bg-[#F5F4F2] py-20 md:py-28">
@@ -556,21 +449,22 @@ export function CounterFinalCta() {
           <Reveal>
             <div className="mx-auto max-w-3xl text-center">
               <h2 className="serif-tight text-3xl text-ink md:text-4xl">
-                Build a checkout space that works.
+                Ready to simplify cash handling?
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-[16px] leading-7 text-ink-muted">
-                Create a cleaner, more professional POS environment with Vertex.
+                Give your team a faster, more organized way to process everyday
+                cash with Vertex.
               </p>
               <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-                <Button href="/get-started">Get Started</Button>
+                <Button href="/get-started">Get a Quote</Button>
                 <Button href="/get-started" variant="secondary">
                   Contact Sales
                 </Button>
               </div>
             </div>
-            <div className="mx-auto mt-12 max-w-2xl">
+            <div className="mx-auto mt-12 max-w-lg">
               <div className="rounded-[28px] border border-line bg-white p-8 shadow-mock md:p-10">
-                <CounterStationUnit size="xl" layout="full" />
+                <BanknoteCounterUnit size="xl" variant="counting" />
               </div>
             </div>
           </Reveal>

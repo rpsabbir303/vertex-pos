@@ -1,25 +1,24 @@
 import type { Metadata } from "next";
 import {
-  CheckoutExperienceSection,
-  CompletePosSetupSection,
-  CompleteSetupSection,
+  AccurateCountingSection,
+  ComparisonCtaSection,
   CounterFaq,
   CounterFinalCta,
   CounterHero,
   CounterTrustSection,
-  CounterDesignSection,
-  FlexibleBusinessSection,
+  EverydayOperationsSection,
+  FasterCashSection,
+  HardwareDetailsSection,
   HardwareSpecs,
   PeaceOfMindSection,
-  ProductComponentsShowcase,
   ProductIntroduction,
-  RealBusinessSection,
+  UseCasesSection,
 } from "@/components/cash-counter/sections";
 
 export const metadata: Metadata = {
   title: "Cash Counter",
   description:
-    "Vertex Cash Counter — a professional POS checkout station designed around the modern POS experience for retail, restaurant, and service businesses.",
+    "Vertex Cash Counter — automatic banknote counting machine for fast, efficient everyday cash handling. Professional commercial design with digital counting display.",
 };
 
 export default function CashCounterPage() {
@@ -27,15 +26,14 @@ export default function CashCounterPage() {
     <>
       <CounterHero />
       <ProductIntroduction />
-      <CounterDesignSection />
-      <RealBusinessSection />
-      <CheckoutExperienceSection />
-      <CompletePosSetupSection />
-      <FlexibleBusinessSection />
+      <AccurateCountingSection />
+      <FasterCashSection />
+      <EverydayOperationsSection />
+      <HardwareDetailsSection />
       <HardwareSpecs />
-      <ProductComponentsShowcase />
+      <UseCasesSection />
+      <ComparisonCtaSection />
       <CounterTrustSection />
-      <CompleteSetupSection />
       <PeaceOfMindSection />
       <CounterFaq />
       <CounterFinalCta />

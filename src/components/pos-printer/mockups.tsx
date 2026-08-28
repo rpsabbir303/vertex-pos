@@ -1,5 +1,5 @@
 import { DeviceUnit } from "@/components/pos-device/mockups";
-import { CounterStationUnit } from "@/components/cash-counter/mockups";
+import { CounterStationUnit } from "@/components/cash-counter/legacy-checkout-station";
 
 type PrinterSize = "sm" | "md" | "lg" | "xl";
 

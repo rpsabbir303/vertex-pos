@@ -1,203 +1,131 @@
 /**
- * Vertex Cash Counter — product catalog.
- * POS checkout station / counter workstation. Only confirmed product facts.
+ * Vertex Cash Counter — automatic banknote counting machine.
+ * Only confirmed / qualitative product facts — no invented measurements.
  */
 export const cashCounterProduct = {
   name: "Vertex Cash Counter",
   shortName: "Cash Counter",
-  category: "VERTEX CASH COUNTER",
-  tagline: "Build a better checkout experience.",
+  category: "CASH COUNTING",
+  tagline: "Know where every dollar goes.",
   description:
-    "A professional checkout station designed around the modern POS experience.",
+    "Count banknotes quickly and efficiently with a professional Vertex Cash Counter designed to simplify everyday cash handling.",
   heroSupport:
-    "Create a clean, professional checkout environment designed around your POS.",
+    "Count banknotes quickly and efficiently with a professional Vertex Cash Counter designed to simplify everyday cash handling.",
   intro:
-    "The Vertex Cash Counter creates a dedicated workspace for POS operations — giving your team a clean, organized checkout area built for everyday business.",
+    "The Vertex Cash Counter helps businesses process banknotes quickly and efficiently, reducing manual counting and keeping daily cash handling organized.",
   benefits: [
-    "Professional checkout setup",
-    "Organized POS workspace",
-    "Clean hardware placement",
-    "Designed for daily business use",
-    "Modern customer-facing experience",
+    "Fast banknote counting",
+    "Simple operation",
+    "Clear counting display",
+    "Efficient cash processing",
+    "Reliable everyday performance",
   ],
-  /** Confirmed / qualitative attributes only — no invented measurements. */
   specs: [
     { label: "Product", value: "Vertex Cash Counter" },
-    { label: "Product type", value: "POS checkout counter / checkout station" },
-    { label: "Use", value: "Professional checkout workspace" },
-    { label: "Design", value: "Modern countertop workstation" },
-    { label: "Integration", value: "Vertex POS ecosystem" },
-    { label: "Hardware placement", value: "Designed for POS device and monitor placement" },
-    { label: "Connectivity", value: "POS-connected checkout environment" },
+    { label: "Product type", value: "Automatic banknote counting machine" },
+    { label: "Counting system", value: "Commercial banknote counting system" },
+    { label: "Display", value: "Digital counting display" },
+    { label: "Operation", value: "Automatic bill feeding" },
+    { label: "Build", value: "Compact commercial enclosure" },
+    { label: "Use", value: "Everyday business cash handling" },
     { label: "Configuration", value: "Contact Vertex for available configurations" },
   ],
 } as const;
 
-export const counterDesignFeatures = [
-  "Dedicated POS placement",
-  "Clean countertop",
-  "Organized workspace",
-  "Professional appearance",
-  "Efficient use of counter space",
+export const accurateCountingFeatures = [
+  "Consistent counting performance",
+  "Clear digital count display",
+  "Automatic bill feeding",
+  "Easy-to-follow controls",
+  "Designed for daily business use",
 ] as const;
 
-export const checkoutExperienceBullets = [
-  "Easy access to POS hardware",
-  "Organized cashier workspace",
-  "Clear customer interaction",
-  "Professional checkout presentation",
+export const fasterCashBullets = [
+  "Reduce manual counting",
+  "Speed up cash processing",
+  "Simplify daily cash reconciliation",
+  "Easy operator workflow",
+  "Professional cash management",
 ] as const;
 
-export const counterBusinessTypes = [
-  {
-    title: "Retail",
-    copy: "A clean, professional checkout area for retail counters.",
-    icon: "M4 7h16v10H4zM8 11h8",
-  },
-  {
-    title: "Restaurant",
-    copy: "Built for busy front-of-house checkout environments.",
-    icon: "M6 10h12v8H6zM9 6h6v4H9z",
-  },
-  {
-    title: "Café",
-    copy: "Compact, organized workspace for fast counter service.",
-    icon: "M8 12h8v6H8zM10 8h4v4h-4z",
-  },
-  {
-    title: "Service business",
-    copy: "Professional presentation for customer-facing counters.",
-    icon: "M5 12h14M8 8V5h8v3",
-  },
+export const everydayOperationsFeatures = [
+  "Compact commercial design",
+  "Easy countertop placement",
+  "Simple control panel",
+  "Durable construction",
+  "Suitable for continuous daily use",
 ] as const;
 
-export const counterEcosystemProducts = [
-  { label: "Cash Counter", href: "/products/cash-counter", primary: true },
-  { label: "POS Monitor", href: "/products/pos-monitor" },
-  { label: "POS Device", href: "/products/pos-device" },
-  { label: "Payment Terminal", href: "/products/payment-terminal" },
-  { label: "Card Reader", href: "/products/pos-card-reader" },
+export const cashCounterUseCases = [
+  { title: "Restaurants", copy: "Count daily cash takings efficiently." },
+  { title: "Retail stores", copy: "Process banknotes at the register." },
+  { title: "Supermarkets", copy: "Support high-volume cash handling." },
+  { title: "Hotels", copy: "Organize front-desk cash processing." },
+  { title: "Convenience stores", copy: "Speed up end-of-shift counting." },
+  { title: "Service businesses", copy: "Keep cash handling organized." },
+  { title: "Cash offices", copy: "Support back-office cash workflows." },
+  { title: "Small businesses", copy: "Simplify everyday cash reconciliation." },
 ] as const;
 
-export const counterTrustIndicators = [
-  "Professional design",
-  "Business-ready setup",
-  "Vertex POS ecosystem",
-  "Vertex support",
-] as const;
-
-export const counterPeaceOfMind = [
+export const peaceOfMindBenefits = [
   {
-    title: "Professional design",
-    copy: "Create a polished customer-facing checkout.",
+    title: "Faster cash processing",
+    copy: "Spend less time manually counting banknotes.",
     icon: "M4 7h16M4 12h10M4 17h14",
   },
   {
-    title: "Organized workspace",
-    copy: "Keep your POS environment clean and efficient.",
+    title: "Simple daily operation",
+    copy: "Straightforward controls for everyday use.",
     icon: "M4 6h16v4H4zM4 12h7v6H4zM13 12h7v6h-7z",
   },
   {
-    title: "Business ready",
-    copy: "Designed for everyday checkout environments.",
+    title: "Clear counting information",
+    copy: "Easy-to-read display for cash totals.",
+    icon: "M5 12h14M8 8V5h8v3M5 19h14V8H5z",
+  },
+  {
+    title: "Professional cash handling",
+    copy: "A dedicated machine for organized cash management.",
     icon: "M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7l7-4z",
   },
-  {
-    title: "Vertex support",
-    copy: "Support when you need it.",
-    icon: "M12 8v4l3 2M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z",
-  },
 ] as const;
 
-export const counterSetupOptions = [
-  {
-    name: "Cash Counter",
-    description:
-      "A dedicated POS checkout station for a clean, professional counter workspace.",
-    features: [
-      "Checkout counter workstation",
-      "Organized POS workspace",
-      "Professional counter presentation",
-      "Contact sales for configuration",
-    ],
-    cta: "Get Started",
-    href: "/get-started",
-    featured: true,
-    layout: "full" as const,
-  },
-  {
-    name: "Complete checkout setup",
-    description:
-      "Combine the Cash Counter with Vertex POS hardware for a connected checkout environment.",
-    features: [
-      "Cash Counter",
-      "POS Device",
-      "POS Monitor",
-      "Payment hardware options",
-    ],
-    cta: "Contact Sales",
-    href: "/get-started",
-    featured: false,
-    layout: "ecosystem" as const,
-  },
-] as const;
-
-export const counterIncluded = [
-  {
-    title: "Cash Counter",
-    copy: "Vertex checkout station workstation. Contact Vertex for configuration and setup details.",
-  },
+export const counterTrustIndicators = [
+  "Reliable construction",
+  "Business-ready design",
+  "Simple operation",
+  "Vertex support",
 ] as const;
 
 export const counterFaqs = [
   {
     question: "What is the Vertex Cash Counter?",
     answer:
-      "The Vertex Cash Counter is a professional POS checkout station — a dedicated counter workspace designed around modern POS operations for retail, restaurant, café, and service businesses.",
+      "The Vertex Cash Counter is an automatic banknote counting machine designed to help businesses process cash quickly and efficiently during everyday operations.",
   },
   {
-    question: "What is included with the Cash Counter?",
+    question: "How does the Vertex Cash Counter work?",
     answer:
-      "The Cash Counter checkout station. Contact Vertex for available configurations, accessories, and setup options for your business.",
+      "Banknotes are fed through the counting mechanism and totals are shown on the digital display — helping reduce manual counting during daily cash handling.",
   },
   {
-    question: "What type of businesses can use the Cash Counter?",
+    question: "Can it count different banknotes?",
     answer:
-      "The Cash Counter is designed for customer-facing checkout environments including retail stores, restaurants, cafés, supermarkets, convenience stores, and service counters.",
+      "Contact Vertex for product details and supported banknote configurations for your business.",
   },
   {
-    question: "Can I use a Vertex POS Device with the Cash Counter?",
+    question: "How does the counting display work?",
     answer:
-      "Yes. The Cash Counter is designed as a checkout workspace that accommodates Vertex POS hardware as part of a complete counter setup.",
+      "The Vertex Cash Counter includes a digital counting display that presents counting information at a glance during operation.",
   },
   {
-    question: "Can I use a Vertex POS Monitor with the Cash Counter?",
+    question: "Is it suitable for everyday business use?",
     answer:
-      "Yes. The Cash Counter can be configured as part of a complete Vertex checkout environment that includes a customer-facing POS Monitor.",
+      "Yes. It is designed as a compact commercial cash-counting solution for businesses that handle banknotes regularly.",
   },
   {
-    question: "Is the Cash Counter customizable?",
+    question: "How do I get pricing or configuration details?",
     answer:
-      "Contact Vertex for available configurations and specifications for your checkout environment.",
-  },
-  {
-    question: "What are the Cash Counter dimensions?",
-    answer:
-      "Contact Vertex for available configurations and specifications.",
-  },
-  {
-    question: "How is the POS hardware mounted?",
-    answer:
-      "Contact Vertex for available configurations and mounting options for your POS hardware setup.",
-  },
-  {
-    question: "Does the Cash Counter include cable management?",
-    answer:
-      "Contact Vertex for available configurations and specifications.",
-  },
-  {
-    question: "How can I purchase the Vertex Cash Counter?",
-    answer:
-      "Get started online or contact sales to plan a checkout setup matched to your business.",
+      "Contact Vertex for pricing, configuration options, and setup guidance for your cash-handling workflow.",
   },
 ] as const;

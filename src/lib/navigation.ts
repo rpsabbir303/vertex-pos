@@ -45,7 +45,7 @@ export const productLinks = [
   },
   {
     title: "Cash Counter",
-    description: "Professional POS checkout station for a clean, organized counter workspace.",
+    description: "Automatic banknote counting machine for fast, efficient everyday cash handling.",
     href: "/products/cash-counter",
   },
   {
