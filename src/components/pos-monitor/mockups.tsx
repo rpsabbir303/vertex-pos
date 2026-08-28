@@ -226,6 +226,78 @@ export function MonitorUnit({
   );
 }
 
+/** Clean product frame for alternating feature sections. */
+export function MonitorProductFrame({
+  children,
+  className = "",
+  variant = "light",
+}: {
+  children: React.ReactNode;
+  className?: string;
+  variant?: "light" | "dark" | "counter";
+}) {
+  const shell =
+    variant === "dark"
+      ? "border-white/10 bg-[#0B1220]"
+      : variant === "counter"
+        ? "border-line bg-[#F0EDE7]"
+        : "border-line bg-white shadow-card";
+
+  return (
+    <div
+      className={`overflow-hidden rounded-[28px] border p-8 md:p-12 ${shell} ${className}`}
+    >
+      {children}
+    </div>
+  );
+}
+
+/** Counter environment — product-focused, no lifestyle photography. */
+export function MonitorCounterScene({
+  screen = "showcase",
+  size = "xl" as MonitorSize,
+}: {
+  screen?: "order" | "total" | "showcase";
+  size?: MonitorSize;
+}) {
+  return (
+    <div className="relative">
+      <div
+        aria-hidden
+        className="absolute inset-x-4 bottom-0 h-16 rounded-t-[20px] bg-[#E8E4DC] md:inset-x-8"
+      />
+      <div className="relative flex min-h-[320px] items-end justify-center pb-6 pt-10 md:min-h-[380px]">
+        <MonitorUnit size={size} angle="tilt" screen={screen} />
+      </div>
+    </div>
+  );
+}
+
+/** Hero visual — premium white stage with subtle shadow. */
+export function MonitorHeroVisual({
+  imageSrc,
+}: {
+  imageSrc?: string;
+}) {
+  return (
+    <div className="relative mx-auto w-full max-w-xl">
+      <div className="rounded-[32px] border border-line bg-white p-10 shadow-mock md:p-14">
+        <MonitorUnit
+          size="xl"
+          angle="tilt"
+          screen="showcase"
+          imageSrc={imageSrc}
+          label="POS Monitor"
+        />
+      </div>
+      <div
+        aria-hidden
+        className="absolute -bottom-4 left-1/2 h-4 w-[70%] -translate-x-1/2 rounded-full bg-black/10 blur-xl"
+      />
+    </div>
+  );
+}
+
 /** Hero stage with soft product pedestal — ready for final photography. */
 export function MonitorHeroStage({
   imageSrc,

@@ -1,22 +1,24 @@
 import type { Metadata } from "next";
 import {
-  CounterUseCases,
-  DeviceDetails,
+  BetterCheckoutSection,
+  BuiltForWorkSection,
+  DesignedToGrowSection,
   HardwareSpecs,
   MonitorFaq,
-  MonitorFeatures,
   MonitorFinalCta,
   MonitorHero,
+  MonitorTestimonial,
+  PeaceOfMindSection,
   ProductDetailsShowcase,
-  ProductExperience,
   ProductIntro,
-  WhatsIncluded,
+  RunWithConfidenceSection,
+  SetupOptionsSection,
 } from "@/components/pos-monitor/sections";
 
 export const metadata: Metadata = {
   title: "POS Monitor",
   description:
-    "Vertex POS Monitor — a customer-facing display that keeps orders, totals, and payments clear at the restaurant counter.",
+    "Vertex POS Monitor — a customer-facing display that delivers a clean, reliable, and professional checkout experience for modern restaurant counters.",
 };
 
 export default function PosMonitorPage() {
@@ -24,13 +26,15 @@ export default function PosMonitorPage() {
     <>
       <MonitorHero />
       <ProductIntro />
+      <BuiltForWorkSection />
+      <BetterCheckoutSection />
+      <RunWithConfidenceSection />
+      <DesignedToGrowSection />
       <ProductDetailsShowcase />
-      <MonitorFeatures />
-      <DeviceDetails />
-      <CounterUseCases />
-      <ProductExperience />
       <HardwareSpecs />
-      <WhatsIncluded />
+      <MonitorTestimonial />
+      <SetupOptionsSection />
+      <PeaceOfMindSection />
       <MonitorFaq />
       <MonitorFinalCta />
     </>
