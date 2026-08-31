@@ -54,8 +54,8 @@ export const productLinks = [
     href: "/products/cash-counter-box",
   },
   {
-    title: "Restaurant Printing",
-    description: "Kitchen ticket and label printers for Vertex POS.",
+    title: "Kitchen & Label Printer",
+    description: "Kitchen order tickets and food labels for restaurant workflows.",
     href: "/products/vertex-printer",
   },
   {
@@ -70,12 +70,12 @@ export const productLinks = [
   },
   {
     title: "Payment Terminal",
-    description: "Dedicated countertop payments for fast, secure checkout.",
+    description: "Dedicated payment terminal for effortless everyday checkout.",
     href: "/products/payment-terminal",
   },
   {
-    title: "Smart Ordering Table",
-    description: "Smart ordering table with a built-in screen.",
+    title: "Smart POS Table",
+    description: "All-in-one touchscreen POS workstation for ordering and checkout.",
     href: "/products/smart-ordering-table",
   },
   {
@@ -113,11 +113,11 @@ export const footerColumns = [
       { label: "POS Monitor", href: "/products/pos-monitor" },
       { label: "Cash Counter", href: "/products/cash-counter" },
       { label: "Cash Counter Box", href: "/products/cash-counter-box" },
-      { label: "Restaurant Printing", href: "/products/vertex-printer" },
+      { label: "Kitchen & Label Printer", href: "/products/vertex-printer" },
       { label: "POS Printer", href: "/products/pos-printer" },
       { label: "Card Reader", href: "/products/pos-card-reader" },
       { label: "Payment Terminal", href: "/products/payment-terminal" },
-      { label: "Smart Ordering Table", href: "/products/smart-ordering-table" },
+      { label: "Smart POS Table", href: "/products/smart-ordering-table" },
       { label: "POS & Billing", href: "/products/pos-billing" },
       { label: "Production Planner", href: "/products/production-planner" },
       { label: "Split & Partial Pay", href: "/products/split-partial-pay" },

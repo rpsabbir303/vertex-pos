@@ -1,38 +1,40 @@
 import type { Metadata } from "next";
 import {
-  CloudOrLocalPrinting,
-  FinalCta,
-  HowTheyWorkTogether,
-  KeyFeatures,
-  KitchenTicketSection,
+  BuiltForRestaurantsSection,
+  HardwareDetailsSection,
+  HardwareSpecs,
+  KitchenLabelFaq,
+  KitchenLabelFinalCta,
+  KitchenLabelHero,
+  KitchenLabelTrustSection,
+  KitchenPrintingSection,
   LabelPrintingSection,
-  ProductShowcase,
-  RestaurantUseCases,
-  Specifications,
-  TwoPrinterSolutions,
-  VertexPrinterHero,
+  RestaurantWorkflowSection,
+  ServiceBenefitsSection,
+  SetupSection,
 } from "@/components/vertex-printer/sections";
 
 export const metadata: Metadata = {
-  title: "Restaurant Printing",
+  title: "Kitchen & Label Printer",
   description:
-    "Vertex restaurant printing — Kitchen Ticket Printer and Kitchen & Label Printer for kitchen orders, food labels, and packaging. Cloud or local.",
+    "Vertex Kitchen & Label Printer — kitchen order tickets and food packaging labels for restaurants, cafés, takeaway, and delivery workflows.",
 };
 
-export default function VertexPrinterPage() {
+export default function KitchenLabelPrinterPage() {
   return (
     <>
-      <VertexPrinterHero />
-      <TwoPrinterSolutions />
-      <HowTheyWorkTogether />
-      <ProductShowcase />
-      <KitchenTicketSection />
+      <KitchenLabelHero />
+      <KitchenPrintingSection />
       <LabelPrintingSection />
-      <CloudOrLocalPrinting />
-      <RestaurantUseCases />
-      <KeyFeatures />
-      <Specifications />
-      <FinalCta />
+      <BuiltForRestaurantsSection />
+      <HardwareDetailsSection />
+      <HardwareSpecs />
+      <RestaurantWorkflowSection />
+      <ServiceBenefitsSection />
+      <SetupSection />
+      <KitchenLabelTrustSection />
+      <KitchenLabelFaq />
+      <KitchenLabelFinalCta />
     </>
   );
 }

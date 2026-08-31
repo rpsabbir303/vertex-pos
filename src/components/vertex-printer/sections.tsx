@@ -1,35 +1,29 @@
-import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { FeatureWide, SectionLabel } from "@/components/ui/LayoutBits";
+import { FaqSection } from "@/components/layout/FaqSection";
 import {
-  formatVertexPrinterPrice,
-  labelPrinter,
-  restaurantPrintingProduct,
-  ticketPrinter,
-  vertexPrinterPricing,
+  kitchenLabelFaqs,
+  kitchenLabelProduct,
+  kitchenLabelSetupOptions,
+  kitchenLabelTrustIndicators,
+  kitchenLabelUseCases,
+  kitchenWorkflowSteps,
+  labelPrintingFeatures,
+  serviceBenefits,
 } from "@/components/vertex-printer/catalog";
 import {
-  DualPrinterHeroComposition,
-  FoodLabelSlip,
-  KitchenTicketSlip,
-  SceneWithPrinter,
+  KitchenEnvironmentScene,
+  KitchenLabelHeroVisual,
+  KitchenLabelProductDetailsDiagram,
+  KitchenLabelProductOnlyVisual,
+  KitchenLabelTrustAtmosphereVisual,
+  KitchenPrintingScene,
+  KitchenTicketPrinter,
+  LabelPrinterUnit,
+  LabelPrintingScene,
   VertexPrinterUnit,
 } from "@/components/vertex-printer/mockups";
-
-const imgKitchenOrders =
-  "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1400&q=80";
-const imgKitchenStation =
-  "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=1200&q=80";
-const imgFoodPackaging =
-  "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1200&q=80";
-const imgPrep =
-  "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=1200&q=80";
-const imgTakeaway =
-  "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80";
-const imgMultiStation =
-  "https://images.unsplash.com/photo-1600565193348-f74bd3bb3b36?auto=format&fit=crop&w=1200&q=80";
-const imgCta =
-  "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1800&q=80";
+import { Reveal } from "@/components/pos-monitor/Reveal";
 
 function Inner({
   children,
@@ -39,154 +33,112 @@ function Inner({
   className?: string;
 }) {
   return (
-    <div className={`mx-auto w-full max-w-[1450px] ${className}`}>{children}</div>
+    <div className={`mx-auto w-full max-w-[1320px] ${className}`}>{children}</div>
   );
 }
 
-function DiagramNode({
-  children,
-  accent = false,
-}: {
-  children: React.ReactNode;
-  accent?: boolean;
-}) {
+function LineIcon({ d }: { d: string }) {
   return (
-    <div
-      className={`rounded-xl border px-4 py-3 text-center text-[13px] font-semibold md:px-5 md:text-[14px] ${
-        accent
-          ? "border-orange/30 bg-orange/5 text-orange"
-          : "border-line bg-white text-ink shadow-card"
-      }`}
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d={d}
+        stroke="#F15A24"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+type FeatureSectionProps = {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  copy: string;
+  bullets?: readonly string[];
+  visual: React.ReactNode;
+  reverse?: boolean;
+  bg?: "white" | "fog";
+};
+
+function FeatureSection({
+  id,
+  eyebrow,
+  title,
+  copy,
+  bullets,
+  visual,
+  reverse = false,
+  bg = "white",
+}: FeatureSectionProps) {
+  return (
+    <section
+      id={id}
+      className={bg === "fog" ? "bg-[#F5F4F2] py-20 md:py-28" : "bg-white py-20 md:py-28"}
     >
-      {children}
-    </div>
+      <FeatureWide>
+        <Inner>
+          <Reveal>
+            <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+              <div className={reverse ? "lg:order-2" : ""}>
+                {eyebrow ? <SectionLabel>{eyebrow}</SectionLabel> : null}
+                <h2 className="serif-tight text-3xl text-ink md:text-[40px] md:leading-[1.12]">
+                  {title}
+                </h2>
+                <p className="mt-4 text-[16px] leading-7 text-ink-muted">{copy}</p>
+                {bullets ? (
+                  <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+                    {bullets.map((item) => (
+                      <li key={item} className="flex items-start gap-2.5">
+                        <span
+                          className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange"
+                          aria-hidden
+                        />
+                        <span className="text-[14px] leading-6 text-ink">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+              <div className={reverse ? "lg:order-1" : ""}>{visual}</div>
+            </div>
+          </Reveal>
+        </Inner>
+      </FeatureWide>
+    </section>
   );
 }
 
 /* ─── 1. HERO ─── */
-export function VertexPrinterHero() {
+export function KitchenLabelHero() {
   return (
-    <section className="overflow-hidden bg-[#FAF8F4] pt-28 md:pt-32">
+    <section className="bg-white pt-28 md:pt-32">
       <FeatureWide>
         <Inner>
-          <div className="grid items-center gap-10 pb-16 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14 lg:pb-20">
-            <div className="max-w-xl">
-              <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-orange">
-                Restaurant Printing
-              </p>
-              <h1 className="serif-tight mt-5 text-4xl leading-[1.06] md:text-[54px]">
-                Every order. Every label.{" "}
-                <span className="accent-word">Printed where it matters.</span>
-              </h1>
-              <p className="mt-5 text-[16px] leading-7 text-ink-muted">
-                {restaurantPrintingProduct.description}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Button href="/get-started">Book a Demo</Button>
-                <Button href="#specifications" variant="secondary">
-                  View Specifications
-                </Button>
-              </div>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <span className="rounded-full border border-line bg-white px-3 py-1.5 text-[12px] font-semibold shadow-card">
-                  Kitchen Ticket Printer
-                </span>
-                <span className="rounded-full border border-line bg-white px-3 py-1.5 text-[12px] font-semibold shadow-card">
-                  Kitchen &amp; Label Printer
-                </span>
-              </div>
-            </div>
-            <DualPrinterHeroComposition />
-          </div>
-        </Inner>
-      </FeatureWide>
-    </section>
-  );
-}
-
-/* ─── 2. TWO PRINTER SOLUTIONS ─── */
-export function TwoPrinterSolutions() {
-  return (
-    <section className="bg-white py-20 md:py-24">
-      <FeatureWide>
-        <Inner>
-          <div className="mx-auto max-w-2xl text-center">
-            <SectionLabel>One platform. Two printing solutions.</SectionLabel>
-            <h2 className="serif-tight text-3xl md:text-5xl">
-              Choose the printer for every part of your kitchen.
-            </h2>
-          </div>
-
-          <div className="mt-12 grid gap-6 lg:grid-cols-2">
-            <article className="overflow-hidden rounded-[24px] border border-line bg-[#FAF8F4] shadow-card">
-              <div className="relative h-56 overflow-hidden md:h-64">
-                <Image
-                  src={imgKitchenStation}
-                  alt="Kitchen Ticket Printer in a restaurant kitchen"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width:1024px) 100vw, 50vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
-                <div className="absolute bottom-4 right-4 w-[42%] max-w-[160px] rounded-2xl border border-white/15 bg-black/30 p-2 backdrop-blur-md">
-                  <VertexPrinterUnit kind="ticket" size="sm" printing />
+          <div className="grid items-center gap-12 pb-16 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16 lg:pb-24">
+            <Reveal>
+              <div className="max-w-xl">
+                <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-orange">
+                  {kitchenLabelProduct.category}
+                </p>
+                <h1 className="serif-tight mt-5 text-4xl leading-[1.05] text-ink md:text-[56px]">
+                  {kitchenLabelProduct.tagline}
+                </h1>
+                <p className="mt-5 text-[16px] leading-7 text-ink-muted md:text-[17px]">
+                  {kitchenLabelProduct.description}
+                </p>
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <Button href="/get-started">Get a Quote</Button>
+                  <Button href="/get-started" variant="secondary">
+                    Contact Sales
+                  </Button>
                 </div>
               </div>
-              <div className="p-6 md:p-8">
-                <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-orange">
-                  Card 01
-                </p>
-                <h3 className="mt-2 text-[24px] font-semibold tracking-tight">
-                  {ticketPrinter.name}
-                </h3>
-                <p className="mt-3 text-[15px] leading-7 text-ink-muted">
-                  {ticketPrinter.description}
-                </p>
-                <ul className="mt-6 space-y-2.5">
-                  {ticketPrinter.features.map((item) => (
-                    <li key={item} className="flex items-center gap-3 text-[14px]">
-                      <span className="h-1.5 w-1.5 rounded-full bg-orange" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </article>
-
-            <article className="overflow-hidden rounded-[24px] border border-line bg-[#FAF8F4] shadow-card">
-              <div className="relative h-56 overflow-hidden md:h-64">
-                <Image
-                  src={imgFoodPackaging}
-                  alt="Kitchen & Label Printer for food packaging"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width:1024px) 100vw, 50vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
-                <div className="absolute bottom-4 right-4 w-[38%] max-w-[150px] rounded-2xl border border-white/15 bg-black/30 p-2 backdrop-blur-md">
-                  <VertexPrinterUnit kind="label" size="sm" printing />
-                </div>
-              </div>
-              <div className="p-6 md:p-8">
-                <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-orange">
-                  Card 02
-                </p>
-                <h3 className="mt-2 text-[24px] font-semibold tracking-tight">
-                  {labelPrinter.name}
-                </h3>
-                <p className="mt-3 text-[15px] leading-7 text-ink-muted">
-                  {labelPrinter.description}
-                </p>
-                <ul className="mt-6 space-y-2.5">
-                  {labelPrinter.features.map((item) => (
-                    <li key={item} className="flex items-center gap-3 text-[14px]">
-                      <span className="h-1.5 w-1.5 rounded-full bg-orange" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </article>
+            </Reveal>
+            <Reveal delay={120}>
+              <KitchenLabelHeroVisual />
+            </Reveal>
           </div>
         </Inner>
       </FeatureWide>
@@ -194,480 +146,400 @@ export function TwoPrinterSolutions() {
   );
 }
 
-/* ─── 3. HOW THEY WORK TOGETHER ─── */
-export function HowTheyWorkTogether() {
+/* ─── 2. KITCHEN PRINTING ─── */
+export function KitchenPrintingSection() {
   return (
-    <section className="bg-[#F7F5F2] py-20 md:py-24">
-      <FeatureWide>
-        <Inner>
-          <div className="mx-auto max-w-2xl text-center">
-            <SectionLabel>Connected kitchen workflow</SectionLabel>
-            <h2 className="serif-tight text-3xl md:text-5xl">
-              From order received to ready for pickup.
-            </h2>
-          </div>
-
-          <div className="mx-auto mt-12 max-w-3xl">
-            <div className="flex flex-col items-center gap-3 rounded-[28px] border border-line bg-white px-5 py-8 shadow-card md:px-10 md:py-10">
-              <DiagramNode>Customer Order</DiagramNode>
-              <span className="text-orange/50">↓</span>
-              <DiagramNode accent>Vertex POS</DiagramNode>
-              <span className="text-orange/50">↓</span>
-
-              <div className="grid w-full gap-4 sm:grid-cols-2 sm:gap-6">
-                <div className="flex flex-col items-center gap-3">
-                  <DiagramNode>Kitchen Ticket Printer</DiagramNode>
-                  <span className="text-orange/50">↓</span>
-                  <p className="text-center text-[13px] leading-5 text-ink-muted">
-                    Kitchen prepares the order
-                  </p>
-                  <div className="w-full max-w-[160px]">
-                    <VertexPrinterUnit kind="ticket" size="sm" printing />
-                  </div>
-                </div>
-                <div className="flex flex-col items-center gap-3">
-                  <DiagramNode>Label Printer</DiagramNode>
-                  <span className="text-orange/50">↓</span>
-                  <p className="text-center text-[13px] leading-5 text-ink-muted">
-                    Package / item gets labeled
-                  </p>
-                  <div className="w-full max-w-[140px]">
-                    <VertexPrinterUnit kind="label" size="sm" printing />
-                  </div>
-                </div>
-              </div>
-
-              <span className="mt-2 text-orange/50">↓</span>
-              <DiagramNode accent>Ready</DiagramNode>
-            </div>
-          </div>
-
-          <div className="mx-auto mt-8 grid max-w-3xl gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-line bg-white p-5 shadow-card">
-              <h3 className="text-[15px] font-semibold">Kitchen Ticket Printer</h3>
-              <p className="mt-2 text-[14px] leading-6 text-ink-muted">
-                Routes order details to the right kitchen station.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-line bg-white p-5 shadow-card">
-              <h3 className="text-[15px] font-semibold">Label Printer</h3>
-              <p className="mt-2 text-[14px] leading-6 text-ink-muted">
-                Prints the labels needed for packaging, prep and fulfillment.
-              </p>
-            </div>
-          </div>
-        </Inner>
-      </FeatureWide>
-    </section>
+    <FeatureSection
+      id="features"
+      eyebrow="Kitchen workflow"
+      title="Everything the kitchen needs."
+      copy={kitchenLabelProduct.intro}
+      bullets={kitchenLabelProduct.benefits}
+      visual={<KitchenPrintingScene />}
+    />
   );
 }
 
-/* ─── 4. PRODUCT SHOWCASE ─── */
-export function ProductShowcase() {
-  return (
-    <section className="bg-[#0f141c] py-20 md:py-24">
-      <FeatureWide>
-        <Inner>
-          <div className="mx-auto max-w-2xl text-center text-white">
-            <p className="mb-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-orange">
-              Built for restaurants
-            </p>
-            <h2 className="serif-tight text-3xl md:text-5xl">
-              Two printers. One connected workflow.
-            </h2>
-          </div>
-
-          <div className="mt-12 grid items-end gap-8 lg:grid-cols-2">
-            <div className="rounded-[28px] border border-white/10 bg-[#151b24] p-8 md:p-10">
-              <VertexPrinterUnit kind="ticket" size="xl" printing highlight />
-              <div className="mt-6 flex flex-wrap justify-center gap-2">
-                <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-semibold text-white/80">
-                  Kitchen Orders
-                </span>
-                <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-semibold text-white/80">
-                  Prep Station
-                </span>
-              </div>
-            </div>
-            <div className="rounded-[28px] border border-white/10 bg-[#151b24] p-8 md:p-10">
-              <VertexPrinterUnit kind="label" size="xl" printing highlight />
-              <div className="mt-6 flex flex-wrap justify-center gap-2">
-                <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-semibold text-white/80">
-                  Food Labels
-                </span>
-                <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-semibold text-white/80">
-                  Takeaway &amp; Delivery
-                </span>
-              </div>
-            </div>
-          </div>
-        </Inner>
-      </FeatureWide>
-    </section>
-  );
-}
-
-/* ─── 5. KITCHEN TICKET PRINTER ─── */
-export function KitchenTicketSection() {
-  return (
-    <section className="bg-white py-20 md:py-24">
-      <FeatureWide>
-        <Inner>
-          <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
-            <SceneWithPrinter
-              image={imgKitchenOrders}
-              alt="Restaurant kitchen order station"
-              kind="ticket"
-              height="min-h-[380px] md:min-h-[460px]"
-            />
-            <div>
-              <SectionLabel>Kitchen ticket printing</SectionLabel>
-              <h2 className="serif-tight text-3xl md:text-5xl">
-                Keep every kitchen order in view.
-              </h2>
-              <p className="mt-4 text-[16px] leading-7 text-ink-muted">
-                Send orders directly from Vertex POS to the kitchen station that needs
-                them.
-              </p>
-              <ul className="mt-8 space-y-3">
-                {ticketPrinter.highlights.map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-center gap-3 border-l-2 border-orange pl-4 text-[15px] font-medium"
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-8 max-w-[200px]">
-                <KitchenTicketSlip />
-              </div>
-            </div>
-          </div>
-        </Inner>
-      </FeatureWide>
-    </section>
-  );
-}
-
-/* ─── 6. LABEL PRINTING ─── */
+/* ─── 3. LABEL PRINTING ─── */
 export function LabelPrintingSection() {
   return (
-    <section className="bg-[#F3EEE6] py-20 md:py-24">
+    <FeatureSection
+      eyebrow="Label printing"
+      title="Make every order easy to identify."
+      copy="Print clear food and packaging labels to help teams organize preparation, pickup, delivery, and takeaway orders."
+      bullets={labelPrintingFeatures}
+      bg="fog"
+      reverse
+      visual={<LabelPrintingScene />}
+    />
+  );
+}
+
+/* ─── 4. BUILT FOR RESTAURANTS ─── */
+export function BuiltForRestaurantsSection() {
+  return (
+    <section className="bg-white py-20 md:py-28">
       <FeatureWide>
         <Inner>
-          <div className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
-            <div className="order-2 lg:order-1">
-              <SectionLabel>Label printing</SectionLabel>
-              <h2 className="serif-tight text-3xl md:text-5xl">
-                Keep every item clearly identified.
+          <Reveal>
+            <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+              <div>
+                <SectionLabel>Built for restaurants</SectionLabel>
+                <h2 className="serif-tight text-3xl text-ink md:text-[40px] md:leading-[1.12]">
+                  Ready for the everyday rush.
+                </h2>
+                <p className="mt-4 text-[16px] leading-7 text-ink-muted">
+                  From kitchen counters to prep stations and packaging areas, the
+                  Kitchen &amp; Label Printer fits naturally into real-world
+                  restaurant workflows.
+                </p>
+                <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                  {kitchenLabelUseCases.map((item) => (
+                    <article
+                      key={item.title}
+                      className="rounded-2xl border border-line bg-[#FAF8F4] p-5 transition-shadow hover:shadow-card"
+                    >
+                      <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-white">
+                        <LineIcon d={item.icon} />
+                      </span>
+                      <h3 className="mt-4 text-[14px] font-semibold uppercase tracking-[0.08em] text-ink">
+                        {item.title}
+                      </h3>
+                      <p className="mt-2 text-[13px] leading-5 text-ink-muted">
+                        {item.copy}
+                      </p>
+                    </article>
+                  ))}
+                </div>
+              </div>
+              <KitchenEnvironmentScene />
+            </div>
+          </Reveal>
+        </Inner>
+      </FeatureWide>
+    </section>
+  );
+}
+
+/* ─── 5. HARDWARE DETAILS ─── */
+export function HardwareDetailsSection() {
+  return (
+    <section className="bg-[#F5F4F2] py-20 md:py-28">
+      <FeatureWide>
+        <Inner>
+          <Reveal>
+            <div className="mx-auto max-w-3xl text-center">
+              <SectionLabel>Hardware details</SectionLabel>
+              <h2 className="serif-tight mt-2 text-3xl text-ink md:text-4xl">
+                Built for busy kitchen operations.
               </h2>
-              <p className="mt-4 text-[16px] leading-7 text-ink-muted">
-                Print food, preparation and packaging labels to keep takeaway and
-                delivery workflows organized.
+              <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-7 text-ink-muted">
+                Explore the physical design and everyday printing capabilities of
+                the Vertex Kitchen &amp; Label Printer.
               </p>
-              <ul className="mt-8 space-y-3">
-                {labelPrinter.highlights.map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-center gap-3 border-l-2 border-orange pl-4 text-[15px] font-medium"
-                  >
-                    {item}
+            </div>
+            <div className="mt-12 md:mt-16">
+              <KitchenLabelProductDetailsDiagram />
+            </div>
+          </Reveal>
+        </Inner>
+      </FeatureWide>
+    </section>
+  );
+}
+
+/* ─── 6. PRODUCT DETAILS ─── */
+export function HardwareSpecs() {
+  return (
+    <section id="specifications" className="bg-white py-20 md:py-28">
+      <FeatureWide>
+        <Inner>
+          <Reveal>
+            <div className="grid items-start gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
+              <div>
+                <SectionLabel>Product details</SectionLabel>
+                <h2 className="serif-tight mt-2 text-3xl text-ink md:text-4xl">
+                  Vertex Kitchen &amp; Label Printer specifications
+                </h2>
+                <p className="mt-4 text-[15px] leading-7 text-ink-muted">
+                  Product specifications for the Vertex Kitchen &amp; Label
+                  Printer. Contact sales for configuration and connectivity
+                  options.
+                </p>
+                <dl className="mt-8 divide-y divide-line rounded-2xl border border-line bg-[#FAF8F4]">
+                  {kitchenLabelProduct.specs.map((spec) => (
+                    <div
+                      key={spec.label}
+                      className="grid gap-1 px-5 py-4 sm:grid-cols-[minmax(130px,0.42fr)_1fr] sm:gap-6"
+                    >
+                      <dt className="text-[12px] font-semibold uppercase tracking-[0.1em] text-ink-faint">
+                        {spec.label}
+                      </dt>
+                      <dd className="text-[15px] font-medium text-ink">
+                        {spec.value}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+              <KitchenLabelProductOnlyVisual />
+            </div>
+          </Reveal>
+        </Inner>
+      </FeatureWide>
+    </section>
+  );
+}
+
+/* ─── 7. RESTAURANT WORKFLOW ─── */
+export function RestaurantWorkflowSection() {
+  return (
+    <section className="bg-[#F5F4F2] py-20 md:py-28">
+      <FeatureWide>
+        <Inner>
+          <Reveal>
+            <div className="mx-auto max-w-2xl text-center">
+              <SectionLabel>Restaurant workflow</SectionLabel>
+              <h2 className="serif-tight mt-2 text-3xl text-ink md:text-4xl">
+                From order to kitchen to handoff.
+              </h2>
+            </div>
+            <div className="mx-auto mt-12 max-w-4xl">
+              <ol className="flex flex-col gap-3 md:gap-0">
+                {kitchenWorkflowSteps.map((step, index) => (
+                  <li key={step} className="flex flex-col items-center md:contents">
+                    <div className="flex w-full items-center gap-4 rounded-2xl border border-line bg-white px-5 py-4 shadow-card md:mx-auto md:max-w-md">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-orange/30 bg-orange-soft/50 text-[13px] font-semibold text-orange">
+                        {index + 1}
+                      </span>
+                      <p className="text-[13px] font-semibold uppercase tracking-[0.1em] text-ink">
+                        {step}
+                      </p>
+                    </div>
+                    {index < kitchenWorkflowSteps.length - 1 ? (
+                      <span
+                        aria-hidden
+                        className="py-1 text-center text-orange/50 md:block"
+                      >
+                        ↓
+                      </span>
+                    ) : null}
                   </li>
                 ))}
-              </ul>
-              <div className="mt-8 flex gap-3">
-                <FoodLabelSlip className="w-28" />
-                <FoodLabelSlip className="w-28 rotate-[2deg]" />
-              </div>
+              </ol>
             </div>
-            <div className="order-1 lg:order-2">
-              <SceneWithPrinter
-                image={imgTakeaway}
-                alt="Restaurant food packaging and labels"
-                kind="label"
-                height="min-h-[380px] md:min-h-[460px]"
-              />
-            </div>
-          </div>
+          </Reveal>
         </Inner>
       </FeatureWide>
     </section>
   );
 }
 
-/* ─── 7. CLOUD OR LOCAL ─── */
-export function CloudOrLocalPrinting() {
+/* ─── 8. BENEFITS ─── */
+export function ServiceBenefitsSection() {
   return (
-    <section className="bg-white py-20 md:py-24">
+    <section className="bg-white py-20 md:py-28">
       <FeatureWide>
         <Inner>
-          <div className="mx-auto max-w-2xl text-center">
-            <SectionLabel>Flexible connectivity</SectionLabel>
-            <h2 className="serif-tight text-3xl md:text-5xl">
-              Cloud or local. Print the way your restaurant works.
-            </h2>
-          </div>
-
-          <div className="mx-auto mt-12 max-w-3xl">
-            <div className="flex flex-col items-center gap-3 rounded-[28px] border border-line bg-[#FAF8F4] px-5 py-8 md:px-10">
-              <DiagramNode accent>Vertex POS</DiagramNode>
-              <span className="text-orange/50">↓</span>
-              <DiagramNode>Cloud / Local</DiagramNode>
-              <span className="text-orange/50">↓</span>
-              <div className="grid w-full gap-4 sm:grid-cols-2">
-                <div className="flex flex-col items-center gap-3 rounded-2xl border border-line bg-white p-5 shadow-card">
-                  <DiagramNode>Kitchen Ticket Printer</DiagramNode>
-                  <span className="text-orange/50">↓</span>
-                  <p className="text-[13px] font-medium text-ink-muted">Kitchen Order Ticket</p>
-                  <VertexPrinterUnit kind="ticket" size="sm" printing />
-                </div>
-                <div className="flex flex-col items-center gap-3 rounded-2xl border border-line bg-white p-5 shadow-card">
-                  <DiagramNode>Label Printer</DiagramNode>
-                  <span className="text-orange/50">↓</span>
-                  <p className="text-[13px] font-medium text-ink-muted">Food / Package Labels</p>
-                  <VertexPrinterUnit kind="label" size="sm" printing />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mx-auto mt-8 grid max-w-3xl gap-4 md:grid-cols-2">
-            <article className="rounded-2xl border border-line bg-white p-6 shadow-card">
-              <h3 className="text-[16px] font-semibold">Cloud Printing</h3>
-              <p className="mt-2 text-[14px] leading-6 text-ink-muted">
-                Send print jobs through the connected Vertex workflow.
-              </p>
-            </article>
-            <article className="rounded-2xl border border-line bg-white p-6 shadow-card">
-              <h3 className="text-[16px] font-semibold">Local Printing</h3>
-              <p className="mt-2 text-[14px] leading-6 text-ink-muted">
-                Connect printers directly through the restaurant&apos;s local network.
-              </p>
-            </article>
-          </div>
-        </Inner>
-      </FeatureWide>
-    </section>
-  );
-}
-
-/* ─── 8. USE CASES ─── */
-export function RestaurantUseCases() {
-  const cases = [
-    {
-      num: "01",
-      title: "Kitchen Orders",
-      copy: "Print incoming orders at the preparation station.",
-      image: imgKitchenStation,
-      kind: "ticket" as const,
-    },
-    {
-      num: "02",
-      title: "Food Preparation",
-      copy: "Print labels for prepared items and ingredients.",
-      image: imgPrep,
-      kind: "label" as const,
-    },
-    {
-      num: "03",
-      title: "Takeaway & Delivery",
-      copy: "Identify packaged orders clearly and consistently.",
-      image: imgFoodPackaging,
-      kind: "label" as const,
-    },
-    {
-      num: "04",
-      title: "Multi-Station Kitchens",
-      copy: "Route printing to the station where the work happens.",
-      image: imgMultiStation,
-      kind: "ticket" as const,
-    },
-  ];
-
-  return (
-    <section className="bg-[#F7F5F2] py-20 md:py-24">
-      <FeatureWide>
-        <Inner>
-          <div className="max-w-xl">
-            <SectionLabel>Where it fits</SectionLabel>
-            <h2 className="serif-tight text-3xl md:text-5xl">
-              Printing for every restaurant workflow.
-            </h2>
-          </div>
-
-          <div className="mt-10 grid gap-5 sm:grid-cols-2">
-            {cases.map((item) => (
-              <article
-                key={item.num}
-                className="overflow-hidden rounded-[22px] border border-line bg-white shadow-card"
-              >
-                <SceneWithPrinter
-                  image={item.image}
-                  alt={item.title}
-                  kind={item.kind}
-                  height="h-[230px] md:h-[250px]"
-                  className="rounded-none border-0 shadow-none"
-                />
-                <div className="p-5 md:p-6">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange">
-                    {item.num} — {item.title}
-                  </p>
-                  <p className="mt-2 text-[14px] leading-6 text-ink-muted">{item.copy}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </Inner>
-      </FeatureWide>
-    </section>
-  );
-}
-
-/* ─── 9. KEY FEATURES ─── */
-export function KeyFeatures() {
-  return (
-    <section className="bg-white py-20 md:py-24">
-      <FeatureWide>
-        <Inner>
-          <div className="mx-auto max-w-2xl text-center">
-            <SectionLabel>Key features</SectionLabel>
-            <h2 className="serif-tight text-3xl md:text-5xl">
-              Everything your kitchen needs to print.
-            </h2>
-          </div>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {restaurantPrintingProduct.keyFeatures.map((feature) => (
-              <article
-                key={feature.title}
-                className="rounded-[20px] border border-line bg-[#FAF8F4] p-6"
-              >
-                <div className="mb-4 h-1 w-8 rounded-full bg-orange" />
-                <h3 className="text-[16px] font-semibold">{feature.title}</h3>
-                <p className="mt-2 text-[14px] leading-6 text-ink-muted">{feature.copy}</p>
-              </article>
-            ))}
-          </div>
-        </Inner>
-      </FeatureWide>
-    </section>
-  );
-}
-
-/* ─── 10. SPECIFICATIONS ─── */
-export function Specifications() {
-  return (
-    <section className="bg-[#F7F5F2] py-20 md:py-24" id="specifications">
-      <FeatureWide>
-        <Inner>
-          <div className="mx-auto max-w-2xl text-center">
-            <SectionLabel>Specifications</SectionLabel>
-            <h2 className="serif-tight text-3xl md:text-5xl">
-              Vertex Printer solutions.
-            </h2>
-          </div>
-
-          <div className="mt-12 grid gap-6 lg:grid-cols-2">
-            <div className="overflow-hidden rounded-[24px] border border-line bg-white shadow-card">
-              <div className="border-b border-line bg-[#0f141c] px-6 py-8">
-                <VertexPrinterUnit kind="ticket" size="md" printing />
-                <p className="mt-6 text-center text-[13px] font-semibold text-white/70">
-                  {ticketPrinter.name}
-                </p>
-              </div>
-              <dl className="divide-y divide-line">
-                {ticketPrinter.specs.map((spec) => (
-                  <div
-                    key={spec.label}
-                    className="grid gap-1 px-6 py-4 sm:grid-cols-[140px_1fr]"
-                  >
-                    <dt className="text-[12px] font-semibold uppercase tracking-[0.06em] text-ink-muted">
-                      {spec.label}
-                    </dt>
-                    <dd className="text-[14px] font-medium">{spec.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-
-            <div className="overflow-hidden rounded-[24px] border border-line bg-white shadow-card">
-              <div className="border-b border-line bg-[#0f141c] px-6 py-8">
-                <VertexPrinterUnit kind="label" size="md" printing />
-                <p className="mt-6 text-center text-[13px] font-semibold text-white/70">
-                  {labelPrinter.name}
-                </p>
-              </div>
-              <dl className="divide-y divide-line">
-                {labelPrinter.specs.map((spec) => (
-                  <div
-                    key={spec.label}
-                    className="grid gap-1 px-6 py-4 sm:grid-cols-[140px_1fr]"
-                  >
-                    <dt className="text-[12px] font-semibold uppercase tracking-[0.06em] text-ink-muted">
-                      {spec.label}
-                    </dt>
-                    <dd className="text-[14px] font-medium">{spec.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          </div>
-
-          <div className="mx-auto mt-8 max-w-xl rounded-[22px] border border-line bg-white p-6 text-center shadow-card md:p-8">
-            <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-orange">
-              Starting at
-            </p>
-            <p className="mt-2 text-[40px] font-semibold tracking-tight">
-              {formatVertexPrinterPrice(vertexPrinterPricing.starting)}
-            </p>
-            <p className="mt-2 text-[14px] text-ink-muted">
-              Restaurant printing solutions for kitchen tickets and labels.
-            </p>
-            <div className="mt-5">
-              <Button href="/get-started">Book a Demo</Button>
-            </div>
-          </div>
-        </Inner>
-      </FeatureWide>
-    </section>
-  );
-}
-
-/* ─── FINAL CTA ─── */
-export function FinalCta() {
-  return (
-    <section className="relative min-h-[440px] overflow-hidden md:min-h-[520px]">
-      <Image
-        src={imgCta}
-        alt="Restaurant kitchen during service"
-        fill
-        className="object-cover"
-        sizes="100vw"
-      />
-      <div className="absolute inset-0 bg-[#0f141c]/84" />
-      <FeatureWide className="relative flex min-h-[440px] flex-col justify-center py-20 md:min-h-[520px] md:py-24">
-        <Inner>
-          <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-            <div className="text-white">
-              <h2 className="serif-tight text-4xl leading-tight md:text-5xl">
-                One restaurant. Every print workflow.
+          <Reveal>
+            <div className="mx-auto max-w-2xl text-center">
+              <SectionLabel>Built for service</SectionLabel>
+              <h2 className="serif-tight mt-2 text-3xl text-ink md:text-4xl">
+                A smoother way to manage printed orders.
               </h2>
-              <p className="mt-4 max-w-lg text-[16px] leading-7 text-white/75">
-                {restaurantPrintingProduct.valueStatement}
+              <p className="mt-4 text-[15px] leading-7 text-ink-muted">
+                Keep kitchen teams organized with clear printing workflows that
+                support preparation, packaging, pickup, and delivery.
               </p>
-              <div className="mt-8">
-                <Button href="/get-started">Book a Demo</Button>
+            </div>
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {serviceBenefits.map((item) => (
+                <article
+                  key={item.title}
+                  className="rounded-2xl border border-line bg-[#FAF8F4] p-6 transition-shadow hover:shadow-card"
+                >
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-white">
+                    <LineIcon d={item.icon} />
+                  </span>
+                  <h3 className="mt-5 text-[14px] font-semibold uppercase tracking-[0.08em] text-ink">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-[14px] leading-6 text-ink-muted">
+                    {item.copy}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </Reveal>
+        </Inner>
+      </FeatureWide>
+    </section>
+  );
+}
+
+/* ─── 9. SETUP ─── */
+export function SetupSection() {
+  return (
+    <section className="bg-[#F5F4F2] py-20 md:py-28">
+      <FeatureWide>
+        <Inner>
+          <Reveal>
+            <div className="mx-auto max-w-2xl text-center">
+              <SectionLabel>Setup</SectionLabel>
+              <h2 className="serif-tight mt-2 text-3xl text-ink md:text-4xl">
+                Choose the printing setup that fits your business.
+              </h2>
+              <p className="mt-4 text-[15px] leading-7 text-ink-muted">
+                Start with kitchen printing or build a complete kitchen and
+                labeling workflow with Vertex.
+              </p>
+            </div>
+            <div className="mt-12 grid gap-6 md:grid-cols-2">
+              {kitchenLabelSetupOptions.map((option) => (
+                <article
+                  key={option.name}
+                  className={`flex flex-col rounded-2xl border p-6 transition-shadow hover:shadow-mock md:p-8 ${
+                    option.featured
+                      ? "border-orange/30 bg-orange-soft/40 shadow-card"
+                      : "border-line bg-white shadow-card"
+                  }`}
+                >
+                  <div className="mb-6 flex justify-center gap-4 rounded-xl border border-line bg-[#FAF8F4] p-6">
+                    {option.kind === "both" ? (
+                      <>
+                        <KitchenTicketPrinter size="sm" printing={false} />
+                        <LabelPrinterUnit size="sm" printing={false} />
+                      </>
+                    ) : (
+                      <VertexPrinterUnit
+                        kind={option.kind}
+                        size="sm"
+                        printing={false}
+                      />
+                    )}
+                  </div>
+                  <h3 className="text-[20px] font-semibold text-ink">
+                    {option.name}
+                  </h3>
+                  <p className="mt-2 text-[14px] leading-6 text-ink-muted">
+                    {option.description}
+                  </p>
+                  <ul className="mt-6 flex-1 space-y-2">
+                    {option.features.map((feature) => (
+                      <li
+                        key={feature}
+                        className="flex items-start gap-2 text-[14px] text-ink"
+                      >
+                        <span
+                          className="mt-2 h-1 w-1 shrink-0 rounded-full bg-orange"
+                          aria-hidden
+                        />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-8">
+                    <Button
+                      href={option.href}
+                      variant={option.featured ? "primary" : "secondary"}
+                      className="w-full sm:w-auto"
+                    >
+                      {option.cta}
+                    </Button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </Reveal>
+        </Inner>
+      </FeatureWide>
+    </section>
+  );
+}
+
+/* ─── 10. TRUST ─── */
+export function KitchenLabelTrustSection() {
+  return (
+    <section className="bg-night py-20 md:py-28">
+      <FeatureWide>
+        <Inner>
+          <Reveal>
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-orange-mid">
+                Trusted in the kitchen
+              </p>
+              <h2 className="serif-tight mt-6 text-3xl text-white md:text-4xl">
+                Keep the kitchen moving.
+              </h2>
+              <p className="mx-auto mt-5 max-w-2xl text-[16px] leading-7 text-white/60">
+                Give your team clear order information and organized labels with
+                printing hardware designed around real restaurant workflows.
+              </p>
+              <div className="mt-10 flex flex-wrap justify-center gap-3">
+                {kitchenLabelTrustIndicators.map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[13px] font-medium text-white/80"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+              <KitchenLabelTrustAtmosphereVisual />
+            </div>
+          </Reveal>
+        </Inner>
+      </FeatureWide>
+    </section>
+  );
+}
+
+/* ─── 11. FAQ ─── */
+export function KitchenLabelFaq() {
+  return (
+    <FaqSection
+      compact
+      eyebrow="FAQ"
+      title="Kitchen & Label Printer questions, answered."
+      items={[...kitchenLabelFaqs]}
+    />
+  );
+}
+
+/* ─── 12. FINAL CTA ─── */
+export function KitchenLabelFinalCta() {
+  return (
+    <section className="bg-[#F5F4F2] py-20 md:py-28">
+      <FeatureWide>
+        <Inner>
+          <Reveal>
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-orange">
+                Ready for a faster kitchen?
+              </p>
+              <h2 className="serif-tight mt-4 text-3xl text-ink md:text-4xl">
+                Keep every order moving.
+              </h2>
+              <p className="mx-auto mt-4 max-w-xl text-[16px] leading-7 text-ink-muted">
+                Bring clear kitchen tickets and organized food labels into your
+                restaurant workflow with Vertex.
+              </p>
+              <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+                <Button href="/get-started">Get a Quote</Button>
+                <Button href="/get-started" variant="secondary">
+                  Contact Sales
+                </Button>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="rounded-[20px] border border-white/15 bg-black/30 p-3 backdrop-blur-md">
-                <VertexPrinterUnit kind="ticket" size="sm" printing />
-              </div>
-              <div className="rounded-[20px] border border-white/15 bg-black/30 p-3 backdrop-blur-md">
-                <VertexPrinterUnit kind="label" size="sm" printing />
+            <div className="mx-auto mt-12 max-w-lg">
+              <div className="rounded-[28px] border border-line bg-white p-8 shadow-mock md:p-10">
+                <div className="grid grid-cols-2 items-end gap-4">
+                  <KitchenTicketPrinter size="md" printing />
+                  <LabelPrinterUnit size="md" printing />
+                </div>
               </div>
             </div>
-          </div>
+          </Reveal>
         </Inner>
       </FeatureWide>
     </section>

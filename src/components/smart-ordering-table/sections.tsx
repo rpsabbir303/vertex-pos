@@ -1,33 +1,27 @@
-import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { FeatureWide, SectionLabel } from "@/components/ui/LayoutBits";
+import { FaqSection } from "@/components/layout/FaqSection";
 import {
-  editorialBenefits,
-  environmentBenefits,
-  experienceSteps,
-  galleryItems,
-  interfaceCallouts,
-  menuAnnotations,
-  orderingStages,
-  smartOrderingTableProduct,
-  specifications,
-  useCases,
+  posWorkflowSteps,
+  serviceBenefits,
+  smartPosTableFaqs,
+  smartPosTableProduct,
+  smartPosTableSetupOptions,
+  smartPosTableTrustIndicators,
+  smartPosTableUseCases,
+  touchscreenFeatures,
 } from "@/components/smart-ordering-table/catalog";
 import {
-  FlowStageVisual,
-  MiniFlowChip,
-  OrderingScreenUI,
-  SmartOrderingTableUnit,
+  SmartPosTableCounterScene,
+  SmartPosTableDetailsDiagram,
+  SmartPosTableHeroVisual,
+  SmartPosTableProductOnlyVisual,
+  SmartPosTableRestaurantScene,
+  SmartPosTableScreenScene,
+  SmartPosTableTrustAtmosphereVisual,
+  SmartPosTableUnit,
 } from "@/components/smart-ordering-table/mockups";
-
-const imgHero =
-  "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=2000&q=80";
-const imgExperience =
-  "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1800&q=80";
-const imgEnvironment =
-  "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=2200&q=80";
-const imgCta =
-  "https://images.unsplash.com/photo-1600565193348-f74bd3bb3b36?auto=format&fit=crop&w=1600&q=80";
+import { Reveal } from "@/components/pos-monitor/Reveal";
 
 function Inner({
   children,
@@ -37,278 +31,112 @@ function Inner({
   className?: string;
 }) {
   return (
-    <div className={`mx-auto w-full max-w-[1450px] ${className}`}>{children}</div>
+    <div className={`mx-auto w-full max-w-[1320px] ${className}`}>{children}</div>
   );
 }
 
-/* 1 — Cinematic hero */
-export function SmartTableHero() {
+function LineIcon({ d }: { d: string }) {
   return (
-    <section className="relative overflow-hidden bg-[#0f141c] pt-28 md:pt-32">
-      <div className="absolute inset-0">
-        <Image
-          src={imgHero}
-          alt="Modern restaurant dining room with tables ready for service"
-          fill
-          priority
-          className="object-cover opacity-45"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0f141c] via-[#0f141c]/88 to-[#0f141c]/35" />
-      </div>
-
-      <FeatureWide className="relative">
-        <Inner>
-          <div className="grid items-end gap-12 pb-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:pb-20">
-            <div className="max-w-xl text-white">
-              <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-orange">
-                Smart Ordering Table
-              </p>
-              <h1 className="serif-tight mt-5 text-4xl leading-[1.05] md:text-[54px]">
-                Let every table become a smarter way to{" "}
-                <span className="accent-word">order.</span>
-              </h1>
-              <p className="mt-5 text-[16px] leading-7 text-white/75">
-                {smartOrderingTableProduct.heroCopy}
-              </p>
-              <p className="mt-4 text-[14px] font-medium text-white/55">
-                {smartOrderingTableProduct.tagline}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Button href="/get-started">Book a Demo</Button>
-                <Button href="#experience" variant="white">
-                  Explore Features
-                </Button>
-              </div>
-            </div>
-
-            <div className="relative">
-              <SmartOrderingTableUnit size="xl" showScreen />
-              <div className="absolute -bottom-4 left-4 right-4 rounded-2xl border border-white/15 bg-black/45 p-4 backdrop-blur-md md:left-8 md:right-auto md:max-w-xs">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-orange">
-                  Ordering flow
-                </p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  <MiniFlowChip label="Browse" active />
-                  <MiniFlowChip label="Customize" />
-                  <MiniFlowChip label="Send" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </Inner>
-      </FeatureWide>
-    </section>
-  );
-}
-
-/* 2 — Experience journey around a visual anchor */
-export function ExperienceJourney() {
-  return (
-    <section id="experience" className="bg-[#FAF8F4] py-20 md:py-28">
-      <FeatureWide>
-        <Inner>
-          <div className="mx-auto max-w-2xl text-center">
-            <SectionLabel>The experience</SectionLabel>
-            <h2 className="serif-tight text-3xl md:text-5xl">
-              From first glance to first order.
-            </h2>
-            <p className="mt-4 text-[16px] leading-7 text-ink-muted">
-              A simple guest journey that starts at the table — and stays there.
-            </p>
-          </div>
-
-          <div className="relative mx-auto mt-14 max-w-5xl">
-            <div className="relative mx-auto aspect-[16/10] max-w-3xl overflow-hidden rounded-[28px]">
-              <Image
-                src={imgExperience}
-                alt="Guests dining at a refined restaurant table"
-                fill
-                className="object-cover"
-                sizes="(max-width:768px) 100vw, 720px"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-              <div className="absolute bottom-5 left-1/2 w-[58%] -translate-x-1/2 md:bottom-8">
-                <SmartOrderingTableUnit size="md" showScreen />
-              </div>
-            </div>
-
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:mt-0 lg:contents">
-              {experienceSteps.map((step, i) => {
-                const positions = [
-                  "lg:absolute lg:left-0 lg:top-[8%] lg:max-w-[200px]",
-                  "lg:absolute lg:right-0 lg:top-[8%] lg:max-w-[200px] lg:text-right",
-                  "lg:absolute lg:left-0 lg:bottom-[6%] lg:max-w-[200px]",
-                  "lg:absolute lg:right-0 lg:bottom-[6%] lg:max-w-[200px] lg:text-right",
-                ];
-                return (
-                  <div key={step.step} className={positions[i]}>
-                    <p className="text-[12px] font-semibold tracking-[0.14em] text-orange">
-                      {step.step}
-                    </p>
-                    <h3 className="mt-2 text-[18px] font-semibold text-ink">
-                      {step.title}
-                    </h3>
-                    <p className="mt-1.5 text-[14px] leading-6 text-ink-muted">
-                      {step.copy}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </Inner>
-      </FeatureWide>
-    </section>
-  );
-}
-
-/* 3 — Immersive menu browsing with annotations */
-export function MenuBrowsingExperience() {
-  return (
-    <section className="overflow-hidden bg-white py-20 md:py-28">
-      <FeatureWide>
-        <Inner>
-          <div className="mb-12 max-w-xl">
-            <SectionLabel>Menu browsing</SectionLabel>
-            <h2 className="serif-tight text-3xl md:text-5xl">
-              The menu lives on the table.
-            </h2>
-            <p className="mt-4 text-[16px] leading-7 text-ink-muted">
-              Categories, dishes, pricing, and checkout stay clear on a
-              customer-facing touchscreen built into the dining surface.
-            </p>
-          </div>
-
-          <div className="relative mx-auto grid max-w-6xl items-center gap-8 lg:grid-cols-[1fr_1.35fr_1fr]">
-            <div className="order-2 space-y-10 lg:order-1 lg:space-y-16 lg:text-right">
-              {menuAnnotations
-                .filter((a) => a.side === "left")
-                .map((a) => (
-                  <div key={a.label} className="lg:ml-auto lg:max-w-[180px]">
-                    <div className="mb-2 hidden h-px w-12 bg-orange lg:ml-auto lg:block" />
-                    <p className="text-[15px] font-semibold text-ink">{a.label}</p>
-                  </div>
-                ))}
-            </div>
-
-            <div className="order-1 lg:order-2">
-              <div className="rounded-[32px] border border-line bg-[#F3EEE6] p-6 shadow-mock md:p-10">
-                <div className="mx-auto aspect-[4/5] max-w-md overflow-hidden rounded-[22px] border border-night/20 bg-night p-2">
-                  <OrderingScreenUI variant="menu" />
-                </div>
-              </div>
-            </div>
-
-            <div className="order-3 space-y-10 lg:space-y-16">
-              {menuAnnotations
-                .filter((a) => a.side === "right")
-                .map((a) => (
-                  <div key={a.label} className="lg:max-w-[180px]">
-                    <div className="mb-2 hidden h-px w-12 bg-orange lg:block" />
-                    <p className="text-[15px] font-semibold text-ink">{a.label}</p>
-                  </div>
-                ))}
-            </div>
-          </div>
-        </Inner>
-      </FeatureWide>
-    </section>
-  );
-}
-
-/* 4 — Vertical ordering workflow */
-export function OrderingFlow() {
-  return (
-    <section className="bg-[#F7F5F2] py-20 md:py-28">
-      <FeatureWide>
-        <Inner>
-          <div className="max-w-xl">
-            <SectionLabel>Ordering flow</SectionLabel>
-            <h2 className="serif-tight text-3xl md:text-5xl">
-              A clear path from browse to kitchen.
-            </h2>
-          </div>
-
-          <div className="relative mt-14">
-            <div
-              className="absolute left-[27px] top-4 bottom-4 hidden w-px bg-line md:left-1/2 md:block"
-              aria-hidden
-            />
-            <div className="space-y-10 md:space-y-0">
-              {orderingStages.map((stage, i) => {
-                const reverse = i % 2 === 1;
-                return (
-                  <div
-                    key={stage.step}
-                    className={`relative grid items-center gap-6 md:grid-cols-2 md:gap-16 ${
-                      i > 0 ? "md:mt-14" : ""
-                    }`}
-                  >
-                    <div
-                      className={`flex items-start gap-5 ${
-                        reverse ? "md:order-2" : ""
-                      }`}
-                    >
-                      <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-line bg-white text-[13px] font-semibold text-orange shadow-card">
-                        {stage.step}
-                      </div>
-                      <div>
-                        <h3 className="text-[20px] font-semibold text-ink">
-                          {stage.title}
-                        </h3>
-                        <p className="mt-2 max-w-sm text-[15px] leading-6 text-ink-muted">
-                          {stage.copy}
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      className={`flex ${
-                        reverse ? "md:order-1 md:justify-end" : "md:justify-start"
-                      }`}
-                    >
-                      <FlowStageVisual index={i} />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </Inner>
-      </FeatureWide>
-    </section>
-  );
-}
-
-/* 5 — Full-bleed restaurant environment */
-export function RestaurantEnvironment() {
-  return (
-    <section className="relative min-h-[70vh] overflow-hidden">
-      <Image
-        src={imgEnvironment}
-        alt="Upscale restaurant dining room with multiple tables in service"
-        fill
-        className="object-cover"
-        sizes="100vw"
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d={d}
+        stroke="#F15A24"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
-      <div className="absolute inset-0 bg-black/55" />
-      <FeatureWide className="relative flex min-h-[70vh] items-end py-16 md:py-20">
+    </svg>
+  );
+}
+
+type FeatureSectionProps = {
+  id?: string;
+  eyebrow?: string;
+  title: string;
+  copy: string;
+  bullets?: readonly string[];
+  visual: React.ReactNode;
+  reverse?: boolean;
+  bg?: "white" | "fog";
+};
+
+function FeatureSection({
+  id,
+  eyebrow,
+  title,
+  copy,
+  bullets,
+  visual,
+  reverse = false,
+  bg = "white",
+}: FeatureSectionProps) {
+  return (
+    <section
+      id={id}
+      className={bg === "fog" ? "bg-[#F5F4F2] py-20 md:py-28" : "bg-white py-20 md:py-28"}
+    >
+      <FeatureWide>
         <Inner>
-          <div className="max-w-2xl text-white">
-            <h2 className="serif-tight text-3xl md:text-5xl">
-              Give guests more control over their dining experience.
-            </h2>
-            <ul className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
-              {environmentBenefits.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-center gap-2 text-[15px] font-medium text-white/90"
-                >
-                  <span className="h-1.5 w-1.5 rounded-full bg-orange" />
-                  {item}
-                </li>
-              ))}
-            </ul>
+          <Reveal>
+            <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+              <div className={reverse ? "lg:order-2" : ""}>
+                {eyebrow ? <SectionLabel>{eyebrow}</SectionLabel> : null}
+                <h2 className="serif-tight text-3xl text-ink md:text-[40px] md:leading-[1.12]">
+                  {title}
+                </h2>
+                <p className="mt-4 text-[16px] leading-7 text-ink-muted">{copy}</p>
+                {bullets ? (
+                  <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+                    {bullets.map((item) => (
+                      <li key={item} className="flex items-start gap-2.5">
+                        <span
+                          className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-orange"
+                          aria-hidden
+                        />
+                        <span className="text-[14px] leading-6 text-ink">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+              <div className={reverse ? "lg:order-1" : ""}>{visual}</div>
+            </div>
+          </Reveal>
+        </Inner>
+      </FeatureWide>
+    </section>
+  );
+}
+
+/* ─── 1. HERO ─── */
+export function SmartPosTableHero() {
+  return (
+    <section className="bg-white pt-28 md:pt-32">
+      <FeatureWide>
+        <Inner>
+          <div className="grid items-center gap-12 pb-16 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16 lg:pb-24">
+            <Reveal>
+              <div className="max-w-xl">
+                <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-orange">
+                  {smartPosTableProduct.category}
+                </p>
+                <h1 className="serif-tight mt-5 text-4xl leading-[1.05] text-ink md:text-[56px]">
+                  {smartPosTableProduct.tagline}
+                </h1>
+                <p className="mt-5 text-[16px] leading-7 text-ink-muted md:text-[17px]">
+                  {smartPosTableProduct.description}
+                </p>
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <Button href="/get-started">Get a Quote</Button>
+                  <Button href="/get-started" variant="secondary">
+                    Contact Sales
+                  </Button>
+                </div>
+              </div>
+            </Reveal>
+            <Reveal delay={120}>
+              <SmartPosTableHeroVisual />
+            </Reveal>
           </div>
         </Inner>
       </FeatureWide>
@@ -316,264 +144,383 @@ export function RestaurantEnvironment() {
   );
 }
 
-/* 6 — Editorial asymmetric benefits */
-export function EditorialBenefits() {
+/* ─── 2. ALL-IN-ONE WORKSTATION ─── */
+export function AllInOneWorkstationSection() {
+  return (
+    <FeatureSection
+      id="features"
+      eyebrow="All-in-one workstation"
+      title="Everything your counter needs."
+      copy={smartPosTableProduct.intro}
+      bullets={smartPosTableProduct.benefits}
+      visual={<SmartPosTableCounterScene />}
+    />
+  );
+}
+
+/* ─── 3. TOUCHSCREEN EXPERIENCE ─── */
+export function TouchscreenExperienceSection() {
+  return (
+    <FeatureSection
+      eyebrow="Touchscreen experience"
+      title="A smarter way to run every order."
+      copy="Give staff a clear touchscreen interface for browsing menus, building orders, reviewing totals, and completing checkout without switching between multiple workstations."
+      bullets={touchscreenFeatures}
+      bg="fog"
+      reverse
+      visual={<SmartPosTableScreenScene />}
+    />
+  );
+}
+
+/* ─── 4. BUILT FOR RESTAURANTS ─── */
+export function BuiltForRestaurantsSection() {
   return (
     <section className="bg-white py-20 md:py-28">
       <FeatureWide>
         <Inner>
-          <h2 className="serif-tight max-w-3xl text-3xl md:text-5xl">
-            More than a table. A smarter ordering point.
-          </h2>
-          <p className="mt-4 max-w-xl text-[16px] leading-7 text-ink-muted">
-            {smartOrderingTableProduct.positioning}
-          </p>
-
-          <div className="mt-16 grid gap-12 md:grid-cols-12 md:gap-y-20">
-            {editorialBenefits.map((b, i) => {
-              const spans = [
-                "md:col-span-5 md:col-start-1",
-                "md:col-span-5 md:col-start-7 md:mt-16",
-                "md:col-span-5 md:col-start-2",
-                "md:col-span-5 md:col-start-8 md:mt-10",
-              ];
-              return (
-                <article key={b.title} className={spans[i]}>
-                  <p className="text-[12px] font-semibold tracking-[0.16em] text-orange">
-                    0{i + 1}
-                  </p>
-                  <h3 className="serif-tight mt-3 text-2xl md:text-3xl">{b.title}</h3>
-                  <p className="mt-3 max-w-sm text-[15px] leading-7 text-ink-muted">
-                    {b.copy}
-                  </p>
-                  <div className="mt-5 h-px w-16 bg-line" />
-                </article>
-              );
-            })}
-          </div>
+          <Reveal>
+            <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+              <div>
+                <SectionLabel>Built for restaurants</SectionLabel>
+                <h2 className="serif-tight text-3xl text-ink md:text-[40px] md:leading-[1.12]">
+                  One workstation. Many service environments.
+                </h2>
+                <p className="mt-4 text-[16px] leading-7 text-ink-muted">
+                  The Smart POS Table fits naturally into restaurants, cafés,
+                  quick-service counters, and other customer-facing service
+                  environments.
+                </p>
+                <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                  {smartPosTableUseCases.map((item) => (
+                    <article
+                      key={item.title}
+                      className="rounded-2xl border border-line bg-[#FAF8F4] p-5 transition-shadow hover:shadow-card"
+                    >
+                      <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-white">
+                        <LineIcon d={item.icon} />
+                      </span>
+                      <h3 className="mt-4 text-[14px] font-semibold uppercase tracking-[0.08em] text-ink">
+                        {item.title}
+                      </h3>
+                      <p className="mt-2 text-[13px] leading-5 text-ink-muted">
+                        {item.copy}
+                      </p>
+                    </article>
+                  ))}
+                </div>
+              </div>
+              <SmartPosTableRestaurantScene />
+            </div>
+          </Reveal>
         </Inner>
       </FeatureWide>
     </section>
   );
 }
 
-/* 7 — Dark interface showcase */
-export function InterfaceShowcase() {
+/* ─── 5. HARDWARE DETAILS ─── */
+export function HardwareDetailsSection() {
   return (
-    <section className="bg-[#0f141c] py-20 md:py-28">
+    <section className="bg-[#F5F4F2] py-20 md:py-28">
       <FeatureWide>
         <Inner>
-          <div className="mx-auto max-w-2xl text-center text-white">
-            <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-orange">
-              Product interface
-            </p>
-            <h2 className="serif-tight mt-4 text-3xl md:text-5xl">
-              Everything the guest needs, on one screen.
-            </h2>
-          </div>
-
-          <div className="relative mx-auto mt-14 max-w-4xl">
-            <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6 md:p-10">
-              <SmartOrderingTableUnit size="xl" showScreen screenVariant="menu" />
+          <Reveal>
+            <div className="mx-auto max-w-3xl text-center">
+              <SectionLabel>Hardware details</SectionLabel>
+              <h2 className="serif-tight mt-2 text-3xl text-ink md:text-4xl">
+                Built around the way you serve.
+              </h2>
+              <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-7 text-ink-muted">
+                Explore the physical design and staff-facing capabilities of the
+                Vertex Smart POS Table.
+              </p>
             </div>
+            <div className="mt-12 md:mt-16">
+              <SmartPosTableDetailsDiagram />
+            </div>
+          </Reveal>
+        </Inner>
+      </FeatureWide>
+    </section>
+  );
+}
 
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-              {interfaceCallouts.map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-white/15 px-4 py-2 text-[13px] font-medium text-white/80"
+/* ─── 6. PRODUCT DETAILS ─── */
+export function HardwareSpecs() {
+  return (
+    <section id="specifications" className="bg-white py-20 md:py-28">
+      <FeatureWide>
+        <Inner>
+          <Reveal>
+            <div className="grid items-start gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
+              <div>
+                <SectionLabel>Product details</SectionLabel>
+                <h2 className="serif-tight mt-2 text-3xl text-ink md:text-4xl">
+                  Vertex Smart POS Table specifications
+                </h2>
+                <p className="mt-4 text-[15px] leading-7 text-ink-muted">
+                  Product specifications for the Vertex Smart POS Table. Contact
+                  sales for configuration and integration options.
+                </p>
+                <dl className="mt-8 divide-y divide-line rounded-2xl border border-line bg-[#FAF8F4]">
+                  {smartPosTableProduct.specs.map((spec) => (
+                    <div
+                      key={spec.label}
+                      className="grid gap-1 px-5 py-4 sm:grid-cols-[minmax(130px,0.42fr)_1fr] sm:gap-6"
+                    >
+                      <dt className="text-[12px] font-semibold uppercase tracking-[0.1em] text-ink-faint">
+                        {spec.label}
+                      </dt>
+                      <dd className="text-[15px] font-medium text-ink">
+                        {spec.value}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+              <SmartPosTableProductOnlyVisual />
+            </div>
+          </Reveal>
+        </Inner>
+      </FeatureWide>
+    </section>
+  );
+}
+
+/* ─── 7. POS WORKFLOW ─── */
+export function PosWorkflowSection() {
+  return (
+    <section className="bg-[#F5F4F2] py-20 md:py-28">
+      <FeatureWide>
+        <Inner>
+          <Reveal>
+            <div className="mx-auto max-w-2xl text-center">
+              <SectionLabel>POS workflow</SectionLabel>
+              <h2 className="serif-tight mt-2 text-3xl text-ink md:text-4xl">
+                From menu to checkout, all in one place.
+              </h2>
+            </div>
+            <div className="mx-auto mt-12 max-w-4xl">
+              <ol className="flex flex-col gap-3 md:gap-0">
+                {posWorkflowSteps.map((step, index) => (
+                  <li key={step} className="flex flex-col items-center">
+                    <div className="flex w-full items-center gap-4 rounded-2xl border border-line bg-white px-5 py-4 shadow-card md:mx-auto md:max-w-md">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-orange/30 bg-orange-soft/50 text-[13px] font-semibold text-orange">
+                        {index + 1}
+                      </span>
+                      <p className="text-[13px] font-semibold uppercase tracking-[0.1em] text-ink">
+                        {step}
+                      </p>
+                    </div>
+                    {index < posWorkflowSteps.length - 1 ? (
+                      <span aria-hidden className="py-1 text-orange/50">
+                        ↓
+                      </span>
+                    ) : null}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </Reveal>
+        </Inner>
+      </FeatureWide>
+    </section>
+  );
+}
+
+/* ─── 8. BENEFITS ─── */
+export function ServiceBenefitsSection() {
+  return (
+    <section className="bg-white py-20 md:py-28">
+      <FeatureWide>
+        <Inner>
+          <Reveal>
+            <div className="mx-auto max-w-2xl text-center">
+              <SectionLabel>Built for service</SectionLabel>
+              <h2 className="serif-tight mt-2 text-3xl text-ink md:text-4xl">
+                Simplify the way your team works.
+              </h2>
+              <p className="mt-4 text-[15px] leading-7 text-ink-muted">
+                Give staff one clear workstation for everyday ordering and
+                checkout.
+              </p>
+            </div>
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {serviceBenefits.map((item) => (
+                <article
+                  key={item.title}
+                  className="rounded-2xl border border-line bg-[#FAF8F4] p-6 transition-shadow hover:shadow-card"
                 >
-                  {item}
-                </span>
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-white">
+                    <LineIcon d={item.icon} />
+                  </span>
+                  <h3 className="mt-5 text-[14px] font-semibold uppercase tracking-[0.08em] text-ink">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-[14px] leading-6 text-ink-muted">
+                    {item.copy}
+                  </p>
+                </article>
               ))}
             </div>
-          </div>
+          </Reveal>
         </Inner>
       </FeatureWide>
     </section>
   );
 }
 
-/* 8 — Horizontal editorial use cases */
-export function UseCasesEditorial() {
+/* ─── 9. SETUP ─── */
+export function SetupSection() {
   return (
-    <section className="bg-[#FAF8F4] py-20 md:py-28">
+    <section className="bg-[#F5F4F2] py-20 md:py-28">
       <FeatureWide>
         <Inner>
-          <div className="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <div className="max-w-xl">
-              <SectionLabel>Use cases</SectionLabel>
-              <h2 className="serif-tight text-3xl md:text-5xl">
-                Built for real dining rooms.
+          <Reveal>
+            <div className="mx-auto max-w-2xl text-center">
+              <SectionLabel>Setup</SectionLabel>
+              <h2 className="serif-tight mt-2 text-3xl text-ink md:text-4xl">
+                Choose the setup that fits your business.
               </h2>
+              <p className="mt-4 text-[15px] leading-7 text-ink-muted">
+                Start with an all-in-one Smart POS Table or work with Vertex to
+                configure your complete service counter.
+              </p>
             </div>
-            <p className="max-w-sm text-[15px] leading-6 text-ink-muted md:text-right">
-              From quiet fine dining to high-turnover casual spaces.
-            </p>
-          </div>
-
-          <div className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory md:grid md:grid-cols-4 md:overflow-visible md:pb-0">
-            {useCases.map((uc) => (
-              <article
-                key={uc.title}
-                className="min-w-[78%] snap-start md:min-w-0"
-              >
-                <div className="relative aspect-[3/4] overflow-hidden">
-                  <Image
-                    src={uc.image}
-                    alt={`${uc.title} restaurant environment`}
-                    fill
-                    className="object-cover transition-transform duration-500 hover:scale-[1.03]"
-                    sizes="(max-width:768px) 80vw, 25vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-                    <h3 className="text-[18px] font-semibold">{uc.title}</h3>
-                    <p className="mt-1.5 text-[13px] leading-5 text-white/75">
-                      {uc.copy}
-                    </p>
+            <div className="mt-12 grid gap-6 md:grid-cols-2">
+              {smartPosTableSetupOptions.map((option) => (
+                <article
+                  key={option.name}
+                  className={`flex flex-col rounded-2xl border p-6 transition-shadow hover:shadow-mock md:p-8 ${
+                    option.featured
+                      ? "border-orange/30 bg-orange-soft/40 shadow-card"
+                      : "border-line bg-white shadow-card"
+                  }`}
+                >
+                  <div className="mb-6 flex justify-center rounded-xl border border-line bg-[#FAF8F4] p-6">
+                    <SmartPosTableUnit size="sm" />
                   </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </Inner>
-      </FeatureWide>
-    </section>
-  );
-}
-
-/* 9 — Specs table only */
-export function ProductSpecifications() {
-  return (
-    <section id="specifications" className="bg-white py-20 md:py-24">
-      <FeatureWide>
-        <Inner>
-          <div className="mx-auto max-w-3xl">
-            <SectionLabel>Specifications</SectionLabel>
-            <h2 className="serif-tight text-3xl md:text-5xl">
-              Smart Ordering Table details.
-            </h2>
-
-            <div className="mt-10 overflow-hidden border-y border-line">
-              <table className="w-full text-left">
-                <tbody>
-                  {specifications.map((row) => (
-                    <tr key={row.label} className="border-b border-line last:border-0">
-                      <th className="w-[42%] py-4 pr-4 align-top text-[13px] font-semibold uppercase tracking-[0.08em] text-ink-muted md:w-[36%]">
-                        {row.label}
-                      </th>
-                      <td className="py-4 text-[15px] font-medium text-ink md:text-[16px]">
-                        {row.value}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                  <h3 className="text-[20px] font-semibold text-ink">
+                    {option.name}
+                  </h3>
+                  <p className="mt-2 text-[14px] leading-6 text-ink-muted">
+                    {option.description}
+                  </p>
+                  <ul className="mt-6 flex-1 space-y-2">
+                    {option.features.map((feature) => (
+                      <li
+                        key={feature}
+                        className="flex items-start gap-2 text-[14px] text-ink"
+                      >
+                        <span
+                          className="mt-2 h-1 w-1 shrink-0 rounded-full bg-orange"
+                          aria-hidden
+                        />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-8">
+                    <Button
+                      href={option.href}
+                      variant={option.featured ? "primary" : "secondary"}
+                      className="w-full sm:w-auto"
+                    >
+                      {option.cta}
+                    </Button>
+                  </div>
+                </article>
+              ))}
             </div>
-          </div>
+          </Reveal>
         </Inner>
       </FeatureWide>
     </section>
   );
 }
 
-/* 10 — Asymmetric gallery */
-export function ProductCloseUp() {
-  const primary = galleryItems.find((g) => g.large)!;
-  const others = galleryItems.filter((g) => !g.large);
-
+/* ─── 10. TRUST ─── */
+export function SmartPosTableTrustSection() {
   return (
-    <section className="bg-[#F3EEE6] py-20 md:py-28">
+    <section className="bg-night py-20 md:py-28">
       <FeatureWide>
         <Inner>
-          <div className="mb-10 max-w-xl">
-            <SectionLabel>Product close-up</SectionLabel>
-            <h2 className="serif-tight text-3xl md:text-5xl">
-              See the table in context.
-            </h2>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-12 md:grid-rows-2 md:gap-5">
-            <figure className="relative min-h-[320px] overflow-hidden md:col-span-7 md:row-span-2 md:min-h-[560px]">
-              <Image
-                src={primary.image}
-                alt={`Smart Ordering Table — ${primary.caption}`}
-                fill
-                className="object-cover"
-                sizes="(max-width:768px) 100vw, 58vw"
-              />
-              <figcaption className="absolute bottom-4 left-4 rounded-full bg-black/45 px-3 py-1.5 text-[12px] font-medium text-white backdrop-blur-sm">
-                {primary.caption}
-              </figcaption>
-            </figure>
-
-            {others.map((item, i) => (
-              <figure
-                key={item.caption}
-                className={`relative min-h-[180px] overflow-hidden md:col-span-5 ${
-                  i === 2 ? "md:min-h-[220px]" : "md:min-h-[260px]"
-                }`}
-              >
-                <Image
-                  src={item.image}
-                  alt={`Smart Ordering Table — ${item.caption}`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width:768px) 100vw, 40vw"
-                />
-                <figcaption className="absolute bottom-3 left-3 rounded-full bg-black/45 px-3 py-1 text-[11px] font-medium text-white backdrop-blur-sm">
-                  {item.caption}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </Inner>
-      </FeatureWide>
-    </section>
-  );
-}
-
-/* 11 — Final CTA (different from hero) */
-export function SmartTableFinalCta() {
-  return (
-    <section className="overflow-hidden bg-[#0f141c]">
-      <FeatureWide>
-        <Inner>
-          <div className="grid items-center gap-10 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14 lg:py-24">
-            <div className="text-white">
-              <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-orange">
-                Smart Ordering Table
+          <Reveal>
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-orange-mid">
+                Built for the counter
               </p>
-              <h2 className="serif-tight mt-4 text-4xl leading-tight md:text-5xl">
-                Bring smarter ordering to every table.
+              <h2 className="serif-tight mt-6 text-3xl text-white md:text-4xl">
+                One smart workstation for every service.
               </h2>
-              <p className="mt-4 max-w-lg text-[16px] leading-7 text-white/70">
-                Give guests a faster, easier way to order while helping your team
-                serve more efficiently.
+              <p className="mx-auto mt-5 max-w-2xl text-[16px] leading-7 text-white/60">
+                Bring ordering, checkout, and everyday POS operations together in
+                a clean integrated setup designed for modern restaurant
+                environments.
               </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Button href="/get-started">Book a Demo</Button>
-                <Button href="/get-started" variant="white">
-                  Talk to Sales
+              <div className="mt-10 flex flex-wrap justify-center gap-3">
+                {smartPosTableTrustIndicators.map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-[13px] font-medium text-white/80"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+              <SmartPosTableTrustAtmosphereVisual />
+            </div>
+          </Reveal>
+        </Inner>
+      </FeatureWide>
+    </section>
+  );
+}
+
+/* ─── 11. FAQ ─── */
+export function SmartPosTableFaq() {
+  return (
+    <FaqSection
+      compact
+      eyebrow="FAQ"
+      title="Smart POS Table questions, answered."
+      items={[...smartPosTableFaqs]}
+    />
+  );
+}
+
+/* ─── 12. FINAL CTA ─── */
+export function SmartPosTableFinalCta() {
+  return (
+    <section className="bg-[#F5F4F2] py-20 md:py-28">
+      <FeatureWide>
+        <Inner>
+          <Reveal>
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-orange">
+                Ready to simplify checkout?
+              </p>
+              <h2 className="serif-tight mt-4 text-3xl text-ink md:text-4xl">
+                Put your whole POS workflow in one place.
+              </h2>
+              <p className="mx-auto mt-4 max-w-xl text-[16px] leading-7 text-ink-muted">
+                Bring ordering, checkout, and everyday restaurant operations
+                together with the Vertex Smart POS Table.
+              </p>
+              <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+                <Button href="/get-started">Get a Quote</Button>
+                <Button href="/get-started" variant="secondary">
+                  Contact Sales
                 </Button>
               </div>
             </div>
-
-            <div className="relative min-h-[340px] overflow-hidden rounded-[28px] md:min-h-[400px]">
-              <Image
-                src={imgCta}
-                alt="Restaurant table ready for service with smart ordering"
-                fill
-                className="object-cover"
-                sizes="(max-width:1024px) 100vw, 42vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-              <div className="absolute bottom-5 left-5 right-5 md:bottom-6 md:left-6 md:right-6">
-                <SmartOrderingTableUnit size="sm" showScreen screenVariant="cart" />
+            <div className="mx-auto mt-12 max-w-lg">
+              <div className="rounded-[28px] border border-line bg-white p-8 shadow-mock md:p-10">
+                <SmartPosTableUnit size="lg" />
               </div>
             </div>
-          </div>
+          </Reveal>
         </Inner>
       </FeatureWide>
     </section>

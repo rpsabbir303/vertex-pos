@@ -1,38 +1,40 @@
 import type { Metadata } from "next";
 import {
-  EditorialBenefits,
-  ExperienceJourney,
-  InterfaceShowcase,
-  MenuBrowsingExperience,
-  OrderingFlow,
-  ProductCloseUp,
-  ProductSpecifications,
-  RestaurantEnvironment,
-  SmartTableFinalCta,
-  SmartTableHero,
-  UseCasesEditorial,
+  AllInOneWorkstationSection,
+  BuiltForRestaurantsSection,
+  HardwareDetailsSection,
+  HardwareSpecs,
+  PosWorkflowSection,
+  ServiceBenefitsSection,
+  SetupSection,
+  SmartPosTableFaq,
+  SmartPosTableFinalCta,
+  SmartPosTableHero,
+  SmartPosTableTrustSection,
+  TouchscreenExperienceSection,
 } from "@/components/smart-ordering-table/sections";
 
 export const metadata: Metadata = {
-  title: "Smart Ordering Table",
+  title: "Smart POS Table",
   description:
-    "Vertex Smart Ordering Table — smart ordering at the table, without the wait. Guests browse, customize, and order from a built-in customer-facing screen.",
+    "Vertex Smart POS Table — all-in-one touchscreen POS workstation for restaurant ordering, checkout, and everyday front-of-house operations.",
 };
 
-export default function SmartOrderingTablePage() {
+export default function SmartPosTablePage() {
   return (
     <>
-      <SmartTableHero />
-      <ExperienceJourney />
-      <MenuBrowsingExperience />
-      <OrderingFlow />
-      <RestaurantEnvironment />
-      <EditorialBenefits />
-      <InterfaceShowcase />
-      <UseCasesEditorial />
-      <ProductSpecifications />
-      <ProductCloseUp />
-      <SmartTableFinalCta />
+      <SmartPosTableHero />
+      <AllInOneWorkstationSection />
+      <TouchscreenExperienceSection />
+      <BuiltForRestaurantsSection />
+      <HardwareDetailsSection />
+      <HardwareSpecs />
+      <PosWorkflowSection />
+      <ServiceBenefitsSection />
+      <SetupSection />
+      <SmartPosTableTrustSection />
+      <SmartPosTableFaq />
+      <SmartPosTableFinalCta />
     </>
   );
 }
